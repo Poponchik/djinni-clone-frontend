@@ -40,26 +40,22 @@ function JobBoard() {
               return (
                 <div className={styles.vacancy}>
                   <h3 className={styles.vacancy_title}>{vacancy.name}</h3>
-                  <p className={styles.vacancy_info}>Solidgate створює надсучасний
-                    фінтех продукт, який допомагає компаніям з США, ЄС, Латинської
-                    Америки приймати платежі.</p>
+                  <p className={styles.vacancy_info}>{vacancy.shortDescription}</p>
 
                   <div className={styles.company_info_div}>
                     <img className={styles.company_logo} src='/images/logo-social.png'></img>
 
                     <div className={styles.company_info}>
-                      <h4 className={styles.company_name}>Solidgate </h4>
+                      <h4 className={styles.company_name}>{vacancy.company.name} </h4>
                       <div className={styles.location_div}>
-                        {/* <MdLocationOn size={16} className={styles.location_logo} />
-                    <p className={styles.location}> Україна</p> */}
+                       {/* <MdLocationOn size={16} className={styles.location_logo} /> */}
+                    <p className={styles.location}> {vacancy.creator.username}</p> 
                       </div>
                     </div>
                   </div>
                 </div>
               )
             })}
-
-
 
 
           </div>
