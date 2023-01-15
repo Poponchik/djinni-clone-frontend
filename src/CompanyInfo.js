@@ -19,7 +19,7 @@ function CompanyInfo() {
         formData.append("description", description);
         formData.append("siteLink", siteLink);
         formData.append("douLink", douLink);
-        formData.append("CV", avatar[0]);
+        formData.append("avatar", avatar[0]);
         console.log(avatar[0])
         await DataService.company.update(companyId, formData)
     }
