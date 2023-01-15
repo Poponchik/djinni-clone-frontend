@@ -20,7 +20,7 @@ function RecrutiersJobList() {
             <div className={styles.inner_container}>
                 <div className={styles.page_title_div}>
                     <h1 className={styles.page_title}>Мої вакансії</h1>
-                    {/* <h1 className={styles.vacancy_count}>6890</h1> */}
+                    <h1 className={styles.vacancy_count}>6890</h1>
                 </div>
                 <button onClick={(e) => {
                     e.preventDefault();
@@ -36,13 +36,12 @@ function RecrutiersJobList() {
                             <p className={styles.vacancy_info}>{vacancy.shortDescription}</p>
 
                             <div className={styles.company_info_div}>
-                                <img className={styles.company_logo} src='/images/logo-social.png'></img>
+                                <img className={styles.company_logo} src={`http://localhost:5000${vacancy.company.avatar}`}></img>
 
                                 <div className={styles.company_info}>
                                     <h4 className={styles.company_name}>{vacancy.company.name}</h4>
                                     <div className={styles.location_div}>
-                                        {/* <MdLocationOn size={16} className={styles.location_logo} />
-                                    <p className={styles.location}> Україна</p> */}
+                                    <p className={styles.location}> {vacancy.creator.username}</p> 
                                     </div>
                                 </div>
                             </div>

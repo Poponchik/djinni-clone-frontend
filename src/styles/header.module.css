@@ -53,6 +53,7 @@
 .user_photo {
     width: 40px;
     border-radius: 100%;
+    background-size: cover;
 }
 
 .user_fullname{

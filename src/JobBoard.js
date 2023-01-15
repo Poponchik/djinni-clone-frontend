@@ -1,29 +1,25 @@
-import logo from './logo.svg';
-import styles from './styles/jobBoard.module.css';
-import { MdLocationOn } from 'react-icons/md';
-import speciaties from './speciaties.json'
-import DataService from './ds'
-import { useState, useEffect } from 'react'
-
-
+import logo from "./logo.svg";
+import styles from "./styles/jobBoard.module.css";
+import { MdLocationOn } from "react-icons/md";
+import speciaties from "./speciaties.json";
+import DataService from "./ds";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function JobBoard() {
-  const [vacancies, setVacancies] = useState([])
-  const [experience, setExperience] = useState('')
-  const [specialty, setSpecialty] = useState('')
-
+  const [vacancies, setVacancies] = useState([]);
+  const [experience, setExperience] = useState("");
+  const [specialty, setSpecialty] = useState("");
 
   async function getAllVacancies() {
-    const { data } = await DataService.vacancy.getAllVacancies()
-    setVacancies(data)
-    console.log(data)
+    const { data } = await DataService.vacancy.getAllVacancies();
+    setVacancies(data);
+    console.log(data);
   }
 
   useEffect(() => {
-    getAllVacancies()
-  }, [])
-
-
+    getAllVacancies();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -35,29 +31,38 @@ function JobBoard() {
 
         <div className={styles.page_content}>
           <div className={styles.vacancy_div}>
-
-            {vacancies.map(vacancy => {
+            {vacancies.map((vacancy) => {
               return (
                 <div className={styles.vacancy}>
-                  <h3 className={styles.vacancy_title}>{vacancy.name}</h3>
-                  <p className={styles.vacancy_info}>{vacancy.shortDescription}</p>
+                  <Link to={`/vacancy/${vacancy._id}`}>
+                    <h3 className={styles.vacancy_title}>{vacancy.name}</h3>
+                  </Link>
+                  <p className={styles.vacancy_info}>
+                    {vacancy.shortDescription}
+                  </p>
 
                   <div className={styles.company_info_div}>
-                    <img className={styles.company_logo} src='/images/logo-social.png'></img>
+                    <img
+                      className={styles.company_logo}
+                      src="/images/logo-social.png"
+                    ></img>
 
                     <div className={styles.company_info}>
-                      <h4 className={styles.company_name}>{vacancy.company.name} </h4>
+                      <h4 className={styles.company_name}>
+                        {vacancy.company.name}{" "}
+                      </h4>
                       <div className={styles.location_div}>
-                       {/* <MdLocationOn size={16} className={styles.location_logo} /> */}
-                    <p className={styles.location}> {vacancy.creator.username}</p> 
+                        {/* <MdLocationOn size={16} className={styles.location_logo} /> */}
+                        <p className={styles.location}>
+                          {" "}
+                          {vacancy.creator?.username}
+                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
-              )
+              );
             })}
-
-
           </div>
           <div className={styles.filter_div}>
             {/* <p className={styles.filter_title}>Шукати за посадою</p>
@@ -72,9 +77,8 @@ function JobBoard() {
               {speciaties.technical.map((speciaty) => {
                 return (
                   <button className={styles.specialization}>{speciaty}</button>
-                )
-              }
-              )}
+                );
+              })}
             </div>
 
             <p className={styles.speciaties_type}>Не технічні</p>
@@ -82,11 +86,9 @@ function JobBoard() {
               {speciaties.nonTechnical.map((speciaty) => {
                 return (
                   <button className={styles.specialization}>{speciaty}</button>
-                )
-              }
-              )}
+                );
+              })}
             </div>
-
 
             <p className={styles.filter_title}>Досвід роботи</p>
             <div className={styles.specialization_div}>
@@ -96,10 +98,8 @@ function JobBoard() {
               <button className={styles.specialization}>3 роки</button>
               <button className={styles.specialization}>5 років</button>
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
   );

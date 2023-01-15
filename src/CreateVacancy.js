@@ -13,8 +13,8 @@ function CreateVacancy() {
         detailedDescription: '',
         min: '',
         max: '',
-        specialty: '0',
-        experience: '0',
+        specialty: '',
+        experience: '',
         salaryRange: '',
     })
 
@@ -29,8 +29,8 @@ function CreateVacancy() {
                 shortDescription: inputValues.shortDescription,
                 detailedDescription: inputValues.detailedDescription,
                 salaryRange: {
-                    min: +inputValues.min,
-                    max: +inputValues.max,
+                    min: inputValues.min ? +inputValues.min : null,
+                    max: inputValues.max ? +inputValues.max : null,
                 },
                 specialty: inputValues.specialty,
                 experience: +inputValues.experience,
@@ -42,8 +42,8 @@ function CreateVacancy() {
             detailedDescription: '',
             min: '',
             max: '',
-            specialty: '0',
-            experience: '0',
+            specialty: '',
+            experience: '',
             salaryRange: '',
         })
         window.location.href = '/myVacancies'

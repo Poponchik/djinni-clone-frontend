@@ -2,12 +2,11 @@ import styles from './styles/header.module.css';
 import { MdLogout, MdOutlineLogout } from 'react-icons/md';
 import { Link } from "react-router-dom";
 import { getUser } from "./utils";
-import { useState, useEffect } from 'react'
 
 
 function Header() {
   function logout() {
-    localStorage.removeItem("userData");
+    localStorage.clear()
     window.location.href = "/login";
   }
 
@@ -20,7 +19,7 @@ function Header() {
         <div className={styles.header_content}>
           <div className={styles.tab_div}>
             <img src='/images/logo.svg' className={styles.logo}></img>
-            {getUser().role == 'Recruter' ?
+            {userData.role === 'Recruter' ?
               <Link to='/myVacancies' className={styles.link}>
                 <p className={styles.vacancy_tab}>Мої вакансії</p>
               </Link> :
@@ -32,7 +31,7 @@ function Header() {
           </div>
 
           <div className={styles.user_div}>
-            <img src='/images/lisa.jpg' className={styles.user_photo}></img>
+            <img src={`http://localhost:5000/${userData.avatar}`} className={styles.user_photo}></img>
             <div className={styles.user_info}>
               <div className={styles.user_fullname}>
                 <p className={styles.user_name}>{userData.username}</p>
