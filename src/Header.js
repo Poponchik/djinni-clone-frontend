@@ -11,6 +11,9 @@ function Header() {
     window.location.href = "/login";
   }
 
+  const userData = JSON.parse(localStorage.getItem('userData'))
+
+
   return (
     <header className={styles.header}>
       <div className={styles.inner_header}>
@@ -26,19 +29,16 @@ function Header() {
               </Link>
             }
 
-
-
-
           </div>
 
           <div className={styles.user_div}>
             <img src='/images/lisa.jpg' className={styles.user_photo}></img>
             <div className={styles.user_info}>
               <div className={styles.user_fullname}>
-                <p className={styles.user_name}>Lisa</p>
-                <p className={styles.user_lastname}>Vivcharuk</p>
+                <p className={styles.user_name}>{userData.username}</p>
+                {/* <p className={styles.user_lastname}>Vivcharuk</p> */}
               </div>
-              <p className={styles.user_email}>liza13564281@gmail.com</p>
+              <p className={styles.user_email}>{userData.email}</p>
             </div>
             <MdOutlineLogout size={26} onClick={() => logout()} />
 

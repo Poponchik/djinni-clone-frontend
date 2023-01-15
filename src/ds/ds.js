@@ -50,8 +50,15 @@ export class Vacancy {
         return authorizedAxios.get(`${this.prefix}/${id}`)
     }
 
-    async getByFitler(id) {
-        return authorizedAxios.get(`${this.prefix}/${id}`)
+    async getByFitler(experience, specialty) {
+        return authorizedAxios.post(`${this.prefix}/filter`, {
+            experience,
+            specialty,
+        })
+    }
+
+    async getAllVacancies() {
+        return authorizedAxios.post(`${this.prefix}/filter`, {})
     }
 
     async getByUser() {

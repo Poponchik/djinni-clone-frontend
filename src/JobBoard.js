@@ -8,16 +8,19 @@ import { useState, useEffect } from 'react'
 
 
 function JobBoard() {
-
   const [vacancies, setVacancies] = useState([])
+  const [experience, setExperience] = useState('')
+  const [specialty, setSpecialty] = useState('')
+
 
   async function getAllVacancies() {
-      const { data } = await DataService.vacancy.get
-      setVacancies(data)
+    const { data } = await DataService.vacancy.getAllVacancies()
+    setVacancies(data)
+    console.log(data)
   }
 
   useEffect(() => {
-      getAllVacancies()
+    getAllVacancies()
   }, [])
 
 
@@ -33,62 +36,29 @@ function JobBoard() {
         <div className={styles.page_content}>
           <div className={styles.vacancy_div}>
 
-            <div className={styles.vacancy}>
-              <h3 className={styles.vacancy_title}>Middle Golang Developer</h3>
-              <p className={styles.vacancy_info}>Solidgate створює надсучасний
-                фінтех продукт, який допомагає компаніям з США, ЄС, Латинської
-                Америки приймати платежі.</p>
+            {vacancies.map(vacancy => {
+              return (
+                <div className={styles.vacancy}>
+                  <h3 className={styles.vacancy_title}>{vacancy.name}</h3>
+                  <p className={styles.vacancy_info}>Solidgate створює надсучасний
+                    фінтех продукт, який допомагає компаніям з США, ЄС, Латинської
+                    Америки приймати платежі.</p>
 
-              <div className={styles.company_info_div}>
-                <img className={styles.company_logo} src='/images/logo-social.png'></img>
+                  <div className={styles.company_info_div}>
+                    <img className={styles.company_logo} src='/images/logo-social.png'></img>
 
-                <div className={styles.company_info}>
-                  <h4 className={styles.company_name}>Solidgate </h4>
-                  <div className={styles.location_div}>
-                    {/* <MdLocationOn size={16} className={styles.location_logo} />
+                    <div className={styles.company_info}>
+                      <h4 className={styles.company_name}>Solidgate </h4>
+                      <div className={styles.location_div}>
+                        {/* <MdLocationOn size={16} className={styles.location_logo} />
                     <p className={styles.location}> Україна</p> */}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              )
+            })}
 
-            <div className={styles.vacancy}>
-              <h3 className={styles.vacancy_title}>Product Manager/Owner</h3>
-              <p className={styles.vacancy_info}>We are looking for an accomplished product manager (PM) to
-                expand the boundaries of the upSWOT The Product Manager position is responsible
-                for delivering business value to drive sales, improve efficiency, and improve
-                customer satisfaction through the production of a quality product.</p>
-
-              <div className={styles.company_info_div}>
-                <img className={styles.company_logo} src='/images/upswot.png'></img>
-
-                <div className={styles.company_info}>
-                  <h4 className={styles.company_name}>upSWOT</h4>
-                  <div className={styles.location_div}>
-                    <MdLocationOn size={16} className={styles.location_logo} />
-                    <p className={styles.location}> Україна</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className={styles.vacancy}>
-              <h3 className={styles.vacancy_title}>Data Engineer </h3>
-              <p className={styles.vacancy_info}>We are looking for a Data Engineer
-                for a European company.</p>
-
-              <div className={styles.company_info_div}>
-                <img className={styles.company_logo} src='/images/squro.png'></img>
-
-                <div className={styles.company_info}>
-                  <h4 className={styles.company_name}>Squro</h4>
-                  <div className={styles.location_div}>
-                    <MdLocationOn size={16} className={styles.location_logo} />
-                    <p className={styles.location}> Україна</p>
-                  </div>
-                </div>
-              </div>
-            </div>
 
 
 
