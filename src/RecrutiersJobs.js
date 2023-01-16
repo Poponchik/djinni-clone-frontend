@@ -20,7 +20,7 @@ function RecrutiersJobList() {
     <div className={styles.container}>
       <div className={styles.inner_container}>
         <div className={styles.page_title_div}>
-          <h1 className={styles.page_title}>Мої вакансії:</h1>
+          <h1 className={styles.page_title}>Мої вакансії</h1>
           <h1 className={styles.vacancy_count}>{vacancies.length}</h1>
         </div>
         <button
@@ -36,7 +36,7 @@ function RecrutiersJobList() {
         {vacancies.map((vacancy) => {
           return (
             <div className={styles.vacancy}>
-              <Link to={`/vacancy/${vacancy._id}`}>
+              <Link to={`/vacancy/${vacancy._id}`} className={styles.link}>
                 <h3 className={styles.vacancy_title}>{vacancy.name}</h3>
               </Link>
               <p className={styles.vacancy_info}>{vacancy.shortDescription}</p>
@@ -63,7 +63,12 @@ function RecrutiersJobList() {
             </div>
           );
         })}
+
+        <Link to ="/" className={styles.link} >
+          <a className={styles.link_to_vacancies}>Дивитися вакансії інших</a>
+        </Link>
       </div>
+
     </div>
   );
 }

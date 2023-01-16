@@ -16,6 +16,11 @@
 .page_title,
 .vacancy_count {
     font-weight: 400;
+
+}
+
+.vacancy_count{
+    color:rgb(155, 155, 155);
 }
 
 .main_button {
@@ -34,8 +39,10 @@
     background-color:#1761ab;
     transition: all ease 0.5s;
 }
+
 .vacancy {
-    margin-top: 36px;
+    margin: 36px 0;
+    
 }
 
 
@@ -91,3 +98,15 @@
     font-weight: 400;
     color: #186FC5;
 }
+
+.link {
+    text-decoration: none;
+}
+
+.link_to_vacancies{
+    font-size: 18px;
+    text-decoration: none;
+    color: #186FC5;
+}
+
+

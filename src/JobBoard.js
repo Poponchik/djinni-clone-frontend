@@ -84,7 +84,7 @@ function JobBoard() {
               {vacancies?.map((vacancy) => {
                 return (
                   <div className={styles.vacancy}>
-                    <Link to={`/vacancy/${vacancy._id}`}>
+                    <Link to={`/vacancy/${vacancy._id}`} className={styles.link}>
                       <h3 className={styles.vacancy_title}>{vacancy.name}</h3>
                     </Link>
                     <p className={styles.vacancy_info}>

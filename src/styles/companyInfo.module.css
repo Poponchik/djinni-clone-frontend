@@ -104,3 +104,7 @@ input[type="file"] {
     border-radius: 4px;
     margin-bottom: 8px;
 }
+
+.link {
+    text-decoration: none;
+}

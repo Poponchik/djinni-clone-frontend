@@ -1,10 +1,12 @@
 .container {
     color: #333;
+    margin-bottom: 60px;
 }
 
 .inner_container {
     width: 980px;
     margin: 0 auto;
+
 }
 
 .page_title_div {
@@ -28,7 +30,6 @@
     font-size: 18px;
     cursor: pointer;
     transition: all ease 0.5s;
-    margin-bottom: 60px;
 }
 
 .main_button:hover {
@@ -184,4 +185,8 @@ textarea {
     display: flex;
     gap:3px;
     align-items: center;
+}
+
+.link {
+    text-decoration: none;
 }

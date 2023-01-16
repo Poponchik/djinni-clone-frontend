@@ -85,3 +85,7 @@ textarea {
     font-size: 16px;
     color: #333;
 }
+
+.link {
+    text-decoration: none;
+}
