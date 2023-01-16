@@ -5,7 +5,7 @@ import filters from "./filters.json";
 import DataService from "./ds";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import { config } from "./config.js";
 function JobBoard() {
   const [vacancies, setVacancies] = useState([]);
 
@@ -31,7 +31,7 @@ function JobBoard() {
     const changeExperience = (number) => {
       if (filter.experience === number) {
         number = null;
-      } 
+      }
       setFilter((prev) => {
         return {
           ...prev,
@@ -94,7 +94,8 @@ function JobBoard() {
                     <div className={styles.company_info_div}>
                       <img
                         className={styles.company_logo}
-                        src="/images/logo-social.png"
+                        src={`${config.serverUrl}${vacancy?.company?.avatar}`}
+                        alt=""
                       ></img>
 
                       <div className={styles.company_info}>

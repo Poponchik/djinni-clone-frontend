@@ -42,7 +42,7 @@ function Registration() {
                         <input value={email} placeholder='Email' className={styles.input}
                             onChange={(event) => setEmail(event.target.value)}
                         ></input>
-                        <input value={password} placeholder='Пароль' className={styles.input}
+                        <input value={password} type="password" placeholder='Пароль' className={styles.input}
                             onChange={(event) => setPassword(event.target.value)}
                         ></input>
                         <div className={styles.options_div}>

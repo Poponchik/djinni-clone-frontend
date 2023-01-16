@@ -6,7 +6,6 @@ import { getUser } from './utils';
 
 function Authorization() {
     const [email, setEmail] = useState('')
-    const [name, setName] = useState('')
     const [password, setPassword] = useState('')
 
     async function authorization() {
@@ -32,7 +31,7 @@ function Authorization() {
                         <input placeholder='Email' className={styles.input}
                             onChange={event => setEmail(event.target.value)}
                         ></input>
-                        <input placeholder='Пароль' className={styles.input}
+                        <input placeholder='Пароль' type="password" className={styles.input}
                             onChange={event => setPassword(event.target.value)}
                         ></input>
                     </div>
