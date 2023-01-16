@@ -65,7 +65,7 @@ export class Vacancy {
         return authorizedAxios.get(`${this.prefix}/byUser`)
     }
 
-    async apply(id) {
-        return authorizedAxios.post(`${this.prefix}/${id}/apply`)
+    async apply(id, formData) {
+        return authorizedAxios.post(`${this.prefix}/${id}/apply`, formData)
     }
 }
