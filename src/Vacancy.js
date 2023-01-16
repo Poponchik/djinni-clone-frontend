@@ -3,18 +3,18 @@ import { useParams } from "react-router-dom";
 import DataService from "./ds";
 import { useState, useEffect } from "react";
 import { config } from "./config.js";
-import { AiOutlineEye } from 'react-icons/ai';
-import { AiOutlineEdit } from 'react-icons/ai';
-import { BsFillPeopleFill } from 'react-icons/bs';
-import moment from 'moment'
+import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEdit } from "react-icons/ai";
+import { BsFillPeopleFill } from "react-icons/bs";
+import moment from "moment";
 
 function Vacancy() {
   const [vacancy, setVacancy] = useState({});
   const [coverLetter, setCoverLetter] = useState("");
   const [cv, setCV] = useState("");
 
+  const userData = JSON.parse(localStorage.getItem("userData"));
   const { vacancyId } = useParams();
-
 
   async function getVacancy() {
     const { data } = await DataService.vacancy.getById(vacancyId);
@@ -79,7 +79,7 @@ function Vacancy() {
             <p className={styles.info}>•ㅤ{vacancy.experience} роки досвіду</p>
           </div>
         </div>
-        {vacancy.isAlreadyApplied ? null : (
+        {vacancy.isAlreadyApplied || userData.role === "Recruter" ? null : (
           <div className={styles.aplication_div}>
             <textarea
               value={coverLetter}
@@ -106,18 +106,25 @@ function Vacancy() {
 
         <div className={styles.site_div}>
           <p className={styles.site_title}>Сторінка на Dou:</p>
-          <a className={styles.site_link} href={vacancy?.company?.douLink}>{vacancy?.company?.douLink}</a>
+          <a className={styles.site_link} href={vacancy?.company?.douLink}>
+            {vacancy?.company?.douLink}
+          </a>
         </div>
 
         <div className={styles.site_div}>
           <p className={styles.site_title}>Сторінка на Dou:</p>
-          <a className={styles.site_link} href={vacancy?.company?.siteLink}>{vacancy?.company?.siteLink}</a>
+          <a className={styles.site_link} href={vacancy?.company?.siteLink}>
+            {vacancy?.company?.siteLink}
+          </a>
         </div>
 
         <div className={styles.stats_div}>
           <div className={styles.date_div}>
             <AiOutlineEdit />
-            <p className={styles.date}>Вакансія опублікована {moment(vacancy.createdAt).format('DD.MM.YYYY')}</p>
+            <p className={styles.date}>
+              Вакансія опублікована{" "}
+              {moment(vacancy.createdAt).format("DD.MM.YYYY")}
+            </p>
           </div>
 
           <div className={styles.stats}>
@@ -132,19 +139,19 @@ function Vacancy() {
           </div>
         </div>
 
-
-
-        <button
-          onClick={apply}
-          className={
-            vacancy.isAlreadyApplied
-              ? styles.main_button_disabled
-              : styles.main_button
-          }
-          disabled={vacancy.isAlreadyApplied}
-        >
-          {vacancy.isAlreadyApplied ? "Вже відгукнулися" : "Відгукнутися"}
-        </button>
+        {userData.role === "Candidate" && (
+          <button
+            onClick={apply}
+            className={
+              vacancy.isAlreadyApplied
+                ? styles.main_button_disabled
+                : styles.main_button
+            }
+            disabled={vacancy.isAlreadyApplied}
+          >
+            {vacancy.isAlreadyApplied ? "Вже відгукнулися" : "Відгукнутися"}
+          </button>
+        )}
       </div>
     </div>
   );

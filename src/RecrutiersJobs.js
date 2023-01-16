@@ -20,8 +20,8 @@ function RecrutiersJobList() {
     <div className={styles.container}>
       <div className={styles.inner_container}>
         <div className={styles.page_title_div}>
-          <h1 className={styles.page_title}>Мої вакансії</h1>
-          <h1 className={styles.vacancy_count}>6890</h1>
+          <h1 className={styles.page_title}>Мої вакансії:</h1>
+          <h1 className={styles.vacancy_count}>{vacancies.length}</h1>
         </div>
         <button
           onClick={(e) => {
