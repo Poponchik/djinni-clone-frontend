@@ -32,7 +32,7 @@
 }
 
 .main_button:hover {
-    background-color:#1761ab;
+    background-color: #1761ab;
     transition: all ease 0.5s;
 }
 
@@ -73,26 +73,26 @@
     line-height: 14px;
 }
 
-.vacancy_info_div{
+.vacancy_info_div {
     margin-top: 28px;
     display: flex;
     gap: 40px;
 }
 
-.descriptions{
+.descriptions {
     width: 70%;
 }
 
-.short_description{
+.short_description {
     font-size: 20px;
     line-height: 150%;
 }
 
-.detailed_description{
+.detailed_description {
     margin-top: 28px;
 }
 
-.vacancy_info{
+.vacancy_info {
     height: 100%;
     width: 30%;
     border: 1px solid rgb(201, 201, 201);
@@ -100,13 +100,13 @@
     padding: 16px 0px 16px 24px;
 }
 
-.info:last-child{
+.info:last-child {
     margin-top: 4px;
 }
- 
-.aplication_div{
+
+.aplication_div {
     margin-top: 38px;
-    
+
 }
 
 .custom_file_upload {
@@ -123,9 +123,20 @@
 
 }
 
-.preview_images_div{
+.preview_images_div {
     width: 100px;
     height: 100%;
+}
+
+.site_title {
+    margin-top: 24px;
+    font-weight: 600;
+}
+
+.site_link {
+    color: #1761ab;
+    cursor:pointer; 
+    text-decoration: none;
 }
 
 textarea {
@@ -141,11 +152,11 @@ textarea {
     margin: 0;
 }
 
-.cover_letter{
+.cover_letter {
     width: 500px;
 }
 
-.main_button_disabled{
+.main_button_disabled {
     margin-top: 24px;
     padding: 8px 16px;
     border-radius: 4px;
@@ -156,4 +167,21 @@ textarea {
     cursor: pointer;
     transition: all ease 0.5s;
     margin-bottom: 60px;
+}
+
+.stats_div{
+    margin-top: 24px;
+
+}
+
+.stats{
+    display:flex;
+    gap: 20px;
+}
+
+.views, .aplications, .date, .date_div{
+    color:#777777;
+    display: flex;
+    gap:3px;
+    align-items: center;
 }

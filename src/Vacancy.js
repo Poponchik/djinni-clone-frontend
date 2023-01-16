@@ -3,6 +3,10 @@ import { useParams } from "react-router-dom";
 import DataService from "./ds";
 import { useState, useEffect } from "react";
 import { config } from "./config.js";
+import { AiOutlineEye } from 'react-icons/ai';
+import { AiOutlineEdit } from 'react-icons/ai';
+import { BsFillPeopleFill } from 'react-icons/bs';
+import moment from 'moment'
 
 function Vacancy() {
   const [vacancy, setVacancy] = useState({});
@@ -10,6 +14,7 @@ function Vacancy() {
   const [cv, setCV] = useState("");
 
   const { vacancyId } = useParams();
+
 
   async function getVacancy() {
     const { data } = await DataService.vacancy.getById(vacancyId);
@@ -98,6 +103,36 @@ function Vacancy() {
             />
           </div>
         )}
+
+        <div className={styles.site_div}>
+          <p className={styles.site_title}>Сторінка на Dou:</p>
+          <a className={styles.site_link} href={vacancy?.company?.douLink}>{vacancy?.company?.douLink}</a>
+        </div>
+
+        <div className={styles.site_div}>
+          <p className={styles.site_title}>Сторінка на Dou:</p>
+          <a className={styles.site_link} href={vacancy?.company?.siteLink}>{vacancy?.company?.siteLink}</a>
+        </div>
+
+        <div className={styles.stats_div}>
+          <div className={styles.date_div}>
+            <AiOutlineEdit />
+            <p className={styles.date}>Вакансія опублікована {moment(vacancy.createdAt).format('DD.MM.YYYY')}</p>
+          </div>
+
+          <div className={styles.stats}>
+            <div className={styles.views}>
+              <AiOutlineEye />
+              <p>{vacancy.viewsCount} переглядів</p>
+            </div>
+            <div className={styles.aplications}>
+              <BsFillPeopleFill />
+              <p>{vacancy.applicationsCount} відгуків</p>
+            </div>
+          </div>
+        </div>
+
+
 
         <button
           onClick={apply}
