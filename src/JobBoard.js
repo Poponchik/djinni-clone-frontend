@@ -20,7 +20,7 @@ function JobBoard() {
     objectFilter.specialty = filter.specialty.length
       ? filter.specialty
       : undefined;
-      
+
     objectFilter.experience = filter.experience ? filter.experience : undefined;
 
     const { data } = await DataService.vacancy.getByFitler(objectFilter);
@@ -177,6 +177,9 @@ function JobBoard() {
                 );
               })}
             </div>
+            <button onClick={getByFitler}>
+              apply
+            </button>
           </div>
         </div>
       </div>
