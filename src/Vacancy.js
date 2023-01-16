@@ -1,5 +1,4 @@
 import styles from "./styles/vacancy.module.css";
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import DataService from "./ds";
 import { useState, useEffect } from "react";

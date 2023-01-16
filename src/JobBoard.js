@@ -29,6 +29,9 @@ function JobBoard() {
 
   async function onFilterChange(key, value) {
     const changeExperience = (number) => {
+      if (filter.experience === number) {
+        number = null;
+      } 
       setFilter((prev) => {
         return {
           ...prev,
@@ -39,9 +42,9 @@ function JobBoard() {
 
     const changeSpecialties = (specialty) => {
       const result = filter.specialty;
-      const exists = filter.specialty.includes(specialty);
-      if (exists) {
-        result.splice(specialty, 1);
+      const deleteIndex = filter.specialty.indexOf(specialty);
+      if (deleteIndex > -1) {
+        result.splice(deleteIndex, 1);
       } else {
         result.push(specialty);
       }
@@ -72,51 +75,55 @@ function JobBoard() {
       <div className={styles.inner_container}>
         <div className={styles.page_title_div}>
           <h1 className={styles.page_title}>Вакансії на Джині</h1>
-          <h1 className={styles.vacancy_count}>6890</h1>
+          <h1 className={styles.vacancy_count}>{vacancies.length}</h1>
         </div>
 
         <div className={styles.page_content}>
-          <div className={styles.vacancy_div}>
-            {vacancies?.map((vacancy) => {
-              return (
-                <div className={styles.vacancy}>
-                  <Link to={`/vacancy/${vacancy._id}`}>
-                    <h3 className={styles.vacancy_title}>{vacancy.name}</h3>
-                  </Link>
-                  <p className={styles.vacancy_info}>
-                    {vacancy.shortDescription}
-                  </p>
+          {vacancies.length ? (
+            <div className={styles.vacancy_div}>
+              {vacancies?.map((vacancy) => {
+                return (
+                  <div className={styles.vacancy}>
+                    <Link to={`/vacancy/${vacancy._id}`}>
+                      <h3 className={styles.vacancy_title}>{vacancy.name}</h3>
+                    </Link>
+                    <p className={styles.vacancy_info}>
+                      {vacancy.shortDescription}
+                    </p>
 
-                  <div className={styles.company_info_div}>
-                    <img
-                      className={styles.company_logo}
-                      src="/images/logo-social.png"
-                    ></img>
+                    <div className={styles.company_info_div}>
+                      <img
+                        className={styles.company_logo}
+                        src="/images/logo-social.png"
+                      ></img>
 
-                    <div className={styles.company_info}>
-                      <h4 className={styles.company_name}>
-                        {vacancy.company.name}{" "}
-                      </h4>
-                      <div className={styles.location_div}>
-                        {/* <MdLocationOn size={16} className={styles.location_logo} /> */}
-                        <p className={styles.location}>
-                          {" "}
-                          {vacancy.creator?.username}
-                        </p>
+                      <div className={styles.company_info}>
+                        <h4 className={styles.company_name}>
+                          {vacancy.company.name}{" "}
+                        </h4>
+                        <div className={styles.location_div}>
+                          {/* <MdLocationOn size={16} className={styles.location_logo} /> */}
+                          <p className={styles.location}>
+                            {" "}
+                            {vacancy.creator?.username}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-          <div className={styles.filter_div}>
-            {/* <p className={styles.filter_title}>Шукати за посадою</p>
-            <div className={styles.search_div}>
-              <input placeholder='Наприклад: Front-end engineer' className={styles.search_input}></input>
-              <button className={styles.search_button}>→</button>
-            </div> */}
+                );
+              })}{" "}
+            </div>
+          ) : (
+            <p className={styles.empty}>
+              За обраними фільтрами вакансій не знайдено
+            </p>
+          )}
 
+          <div className={styles.filter_div}>
+            <button onClick={getByFitler} className={styles.main_button}>
+              Застосувати
+            </button>
             <p className={styles.filter_title}>Спеціалізація</p>
             <p className={styles.speciaties_type}>Технічні</p>
             <div className={styles.specialization_div}>
@@ -124,30 +131,27 @@ function JobBoard() {
                 return (
                   <button
                     onClick={() => onFilterChange("specialties", specialty)}
-                    className={styles.specialization}
-                    style={{
-                      color: filter.specialty.includes(specialty)
-                        ? "black"
-                        : "blue",
-                    }}
+                    className={
+                      filter.specialty.includes(specialty)
+                        ? styles.specialization_checked
+                        : styles.specialization
+                    }
                   >
                     {specialty}
                   </button>
                 );
               })}
             </div>
-
             <p className={styles.speciaties_type}>Не технічні</p>
             <div className={styles.specialization_div}>
               {filters.specialties.nonTechnical.map((specialty) => {
                 return (
                   <button
-                    className={styles.specialization}
-                    style={{
-                      color: filter.specialty.includes(specialty)
-                        ? "black"
-                        : "blue",
-                    }}
+                    className={
+                      filter.specialty.includes(specialty)
+                        ? styles.specialization_checked
+                        : styles.specialization
+                    }
                     onClick={() => onFilterChange("specialties", specialty)}
                   >
                     {specialty}
@@ -155,19 +159,16 @@ function JobBoard() {
                 );
               })}
             </div>
-
             <p className={styles.filter_title}>Досвід роботи</p>
             <div className={styles.specialization_div}>
               {filters.experiences.map((experience) => {
                 return (
                   <button
-                    className={styles.specialization}
-                    style={{
-                      color:
-                        filter.experience === experience.value
-                          ? "black"
-                          : "blue",
-                    }}
+                    className={
+                      filter.experience === experience.value
+                        ? styles.specialization_checked
+                        : styles.specialization
+                    }
                     onClick={() =>
                       onFilterChange("experience", experience.value)
                     }
@@ -177,9 +178,6 @@ function JobBoard() {
                 );
               })}
             </div>
-            <button onClick={getByFitler}>
-              apply
-            </button>
           </div>
         </div>
       </div>
