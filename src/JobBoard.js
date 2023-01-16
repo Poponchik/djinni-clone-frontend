@@ -94,7 +94,7 @@ function JobBoard() {
                     <div className={styles.company_info_div}>
                       <img
                         className={styles.company_logo}
-                        src={`${config.serverUrl}${vacancy?.company?.avatar}`}
+                        src={`${config.serverUrl}/${vacancy?.company?.avatar}`}
                         alt=""
                       ></img>
 

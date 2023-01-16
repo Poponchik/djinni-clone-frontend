@@ -31,7 +31,7 @@ function Header() {
 
           <div className={styles.user_div}>
             <img
-              src={`${config.serverUrl}${userData.avatar}`}
+              src={`${config.serverUrl}/${userData.avatar}`}
               className={styles.user_photo}
               alt=""
             ></img>

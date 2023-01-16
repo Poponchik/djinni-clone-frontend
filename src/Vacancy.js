@@ -2,6 +2,7 @@ import styles from "./styles/vacancy.module.css";
 import { useParams } from "react-router-dom";
 import DataService from "./ds";
 import { useState, useEffect } from "react";
+import { config } from "./config.js";
 
 function Vacancy() {
   const [vacancy, setVacancy] = useState({});
@@ -23,7 +24,7 @@ function Vacancy() {
     await DataService.vacancy.apply(vacancyId, formData);
     setCV("");
     setCoverLetter("");
-    getVacancy()
+    getVacancy();
   }
 
   function uploadImages(file) {
@@ -47,7 +48,8 @@ function Vacancy() {
         <div className={styles.company_info_div}>
           <img
             className={styles.company_logo}
-            src={`http://localhost:5000${vacancy?.company?.avatar}`}
+            src={`${config.serverUrl}/${vacancy?.company?.avatar}`}
+            alt=""
           ></img>
 
           <div className={styles.company_info}>
