@@ -8,7 +8,7 @@ function Vacancy() {
   const [vacancy, setVacancy] = useState({});
   const [coverLetter, setCoverLetter] = useState('');
   const [cv, setCV] = useState('')
-
+  
   const { vacancyId } = useParams();
 
   async function getVacancy() {

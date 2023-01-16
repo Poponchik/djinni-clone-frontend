@@ -1,24 +1,70 @@
 import logo from "./logo.svg";
 import styles from "./styles/jobBoard.module.css";
 import { MdLocationOn } from "react-icons/md";
-import speciaties from "./speciaties.json";
+import filters from "./filters.json";
 import DataService from "./ds";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function JobBoard() {
   const [vacancies, setVacancies] = useState([]);
-  const [experience, setExperience] = useState("");
-  const [specialty, setSpecialty] = useState("");
 
-  async function getAllVacancies() {
-    const { data } = await DataService.vacancy.getAllVacancies();
+  const [filter, setFilter] = useState({
+    specialty: [],
+    experience: null,
+  });
+
+  async function getByFitler() {
+    const objectFilter = {};
+
+    objectFilter.specialty = filter.specialty.length
+      ? filter.specialty
+      : undefined;
+      
+    objectFilter.experience = filter.experience ? filter.experience : undefined;
+
+    const { data } = await DataService.vacancy.getByFitler(objectFilter);
     setVacancies(data);
-    console.log(data);
   }
 
+  async function onFilterChange(key, value) {
+    const changeExperience = (number) => {
+      setFilter((prev) => {
+        return {
+          ...prev,
+          experience: number,
+        };
+      });
+    };
+
+    const changeSpecialties = (specialty) => {
+      const result = filter.specialty;
+      const exists = filter.specialty.includes(specialty);
+      if (exists) {
+        result.splice(specialty, 1);
+      } else {
+        result.push(specialty);
+      }
+      setFilter((prev) => {
+        return {
+          ...prev,
+          specialty: result,
+        };
+      });
+    };
+
+    const operations = {
+      specialties: changeSpecialties,
+      experience: changeExperience,
+    };
+
+    return operations[key](value);
+  }
+
+  console.log({ filter });
+
   useEffect(() => {
-    getAllVacancies();
+    getByFitler();
   }, []);
 
   return (
@@ -31,7 +77,7 @@ function JobBoard() {
 
         <div className={styles.page_content}>
           <div className={styles.vacancy_div}>
-            {vacancies.map((vacancy) => {
+            {vacancies?.map((vacancy) => {
               return (
                 <div className={styles.vacancy}>
                   <Link to={`/vacancy/${vacancy._id}`}>
@@ -74,29 +120,62 @@ function JobBoard() {
             <p className={styles.filter_title}>Спеціалізація</p>
             <p className={styles.speciaties_type}>Технічні</p>
             <div className={styles.specialization_div}>
-              {speciaties.technical.map((speciaty) => {
+              {filters.specialties.technical.map((specialty) => {
                 return (
-                  <button className={styles.specialization}>{speciaty}</button>
+                  <button
+                    onClick={() => onFilterChange("specialties", specialty)}
+                    className={styles.specialization}
+                    style={{
+                      color: filter.specialty.includes(specialty)
+                        ? "black"
+                        : "blue",
+                    }}
+                  >
+                    {specialty}
+                  </button>
                 );
               })}
             </div>
 
             <p className={styles.speciaties_type}>Не технічні</p>
             <div className={styles.specialization_div}>
-              {speciaties.nonTechnical.map((speciaty) => {
+              {filters.specialties.nonTechnical.map((specialty) => {
                 return (
-                  <button className={styles.specialization}>{speciaty}</button>
+                  <button
+                    className={styles.specialization}
+                    style={{
+                      color: filter.specialty.includes(specialty)
+                        ? "black"
+                        : "blue",
+                    }}
+                    onClick={() => onFilterChange("specialties", specialty)}
+                  >
+                    {specialty}
+                  </button>
                 );
               })}
             </div>
 
             <p className={styles.filter_title}>Досвід роботи</p>
             <div className={styles.specialization_div}>
-              <button className={styles.specialization}>Без досвіду</button>
-              <button className={styles.specialization}>1 рік</button>
-              <button className={styles.specialization}>2 роки</button>
-              <button className={styles.specialization}>3 роки</button>
-              <button className={styles.specialization}>5 років</button>
+              {filters.experiences.map((experience) => {
+                return (
+                  <button
+                    className={styles.specialization}
+                    style={{
+                      color:
+                        filter.experience === experience.value
+                          ? "black"
+                          : "blue",
+                    }}
+                    onClick={() =>
+                      onFilterChange("experience", experience.value)
+                    }
+                  >
+                    {experience.text}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
