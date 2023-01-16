@@ -5,9 +5,9 @@ import { useState, useEffect } from "react";
 
 function Vacancy() {
   const [vacancy, setVacancy] = useState({});
-  const [coverLetter, setCoverLetter] = useState('');
-  const [cv, setCV] = useState('')
-  
+  const [coverLetter, setCoverLetter] = useState("");
+  const [cv, setCV] = useState("");
+
   const { vacancyId } = useParams();
 
   async function getVacancy() {
@@ -15,14 +15,15 @@ function Vacancy() {
     setVacancy(data);
   }
 
-  async function apply(){
+  async function apply() {
     const formData = new FormData();
     formData.append("coverLetter", coverLetter);
     formData.append("CV", cv[0]);
 
-    await DataService.vacancy.apply(vacancyId, formData)
-    setCV('') 
-    setCoverLetter('')
+    await DataService.vacancy.apply(vacancyId, formData);
+    setCV("");
+    setCoverLetter("");
+    getVacancy()
   }
 
   function uploadImages(file) {
@@ -44,7 +45,10 @@ function Vacancy() {
           <h1 className={styles.page_title}>{vacancy?.name}</h1>
         </div>
         <div className={styles.company_info_div}>
-          <img className={styles.company_logo} src={`http://localhost:5000${vacancy?.company?.avatar}`}></img>
+          <img
+            className={styles.company_logo}
+            src={`http://localhost:5000${vacancy?.company?.avatar}`}
+          ></img>
 
           <div className={styles.company_info}>
             <h4 className={styles.company_name}>{vacancy?.company?.name}</h4>
@@ -68,28 +72,38 @@ function Vacancy() {
             <p className={styles.info}>•ㅤ{vacancy.experience} роки досвіду</p>
           </div>
         </div>
-        <div className={styles.aplication_div}>
-            <textarea value={coverLetter} placeholder="Cover letter" className={styles.cover_letter}
-            onChange={(event)=> setCoverLetter(event.target.value)}
-            
+        {vacancy.isAlreadyApplied ? null : (
+          <div className={styles.aplication_div}>
+            <textarea
+              value={coverLetter}
+              placeholder="Cover letter"
+              className={styles.cover_letter}
+              onChange={(event) => setCoverLetter(event.target.value)}
             ></textarea>
             <div className={styles.upload_image_div}>
-                <label
-                  htmlFor="file-upload"
-                  className={styles.custom_file_upload}
-                >
-                  Завантажити CV
-                </label>
-              </div> 
-              <input
-                id="file-upload"
-                type="file"
-                multiple
-                onChange={(e) => uploadImages(e.target.files)}
-              />
-        </div>
-        <button onClick={apply}
-          className={vacancy.isAlreadyApplied ? styles.main_button_disabled : styles.main_button}
+              <label
+                htmlFor="file-upload"
+                className={styles.custom_file_upload}
+              >
+                Завантажити CV
+              </label>
+            </div>
+            <input
+              id="file-upload"
+              type="file"
+              multiple
+              onChange={(e) => uploadImages(e.target.files)}
+            />
+          </div>
+        )}
+
+        <button
+          onClick={apply}
+          className={
+            vacancy.isAlreadyApplied
+              ? styles.main_button_disabled
+              : styles.main_button
+          }
           disabled={vacancy.isAlreadyApplied}
         >
           {vacancy.isAlreadyApplied ? "Вже відгукнулися" : "Відгукнутися"}
