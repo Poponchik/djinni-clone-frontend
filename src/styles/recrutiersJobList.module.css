@@ -115,3 +115,12 @@
     margin-top: 32px;
 }
 
+
+.salary_div{
+    display: flex;
+    gap: 12px;
+}
+
+.salary{
+    color: #2a9c08;
+}

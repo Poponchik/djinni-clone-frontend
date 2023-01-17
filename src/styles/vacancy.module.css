@@ -13,6 +13,7 @@
     margin-top: 100px;
     display: flex;
     gap: 14px;
+    
 }
 
 .page_title,
@@ -189,4 +190,17 @@ textarea {
 
 .link {
     text-decoration: none;
+}
+
+
+.salary_div{
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.salary{
+    color: #2a9c08;
+    font-size: 20px;
+    margin-bottom: -10px;
 }

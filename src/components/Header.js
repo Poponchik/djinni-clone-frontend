@@ -18,14 +18,21 @@ function Header() {
           <div className={styles.tab_div}>
             <img src="/images/logo.svg" className={styles.logo} alt=""></img>
             {userData.role === "Recruter" ? (
-              <Link to="/myVacancies" className={styles.link}>
-                <p className={styles.vacancy_tab}>Мої вакансії</p>
-              </Link>
+              <div className={styles.nav}>
+                <Link to="/myVacancies" className={styles.link}>
+                  <p className={styles.vacancy_tab}>Мої вакансії</p>
+                </Link>
+                <Link to="/companyInfo" className={styles.link}>
+                  <p className={styles.vacancy_tab}>Моя компанія</p>
+                </Link>
+              </div>
+
             ) : (
               <Link to="/" className={styles.link}>
                 <p className={styles.vacancy_tab}>Вакансії</p>
               </Link>
             )}
+
           </div>
 
           <div className={styles.user_div}>

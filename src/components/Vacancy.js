@@ -12,7 +12,7 @@ function Vacancy() {
   const [vacancy, setVacancy] = useState({});
   const [coverLetter, setCoverLetter] = useState("");
   const [cv, setCV] = useState("");
-  
+
   const userData = JSON.parse(localStorage.getItem("userData"));
   const { vacancyId } = useParams();
 
@@ -42,13 +42,20 @@ function Vacancy() {
 
   useEffect(() => {
     getVacancy();
+    window.scrollTo(0, 0)
   }, [vacancyId]);
 
   return (
     <div className={styles.container}>
       <div className={styles.inner_container}>
         <div className={styles.page_title_div}>
-          <h1 className={styles.page_title}>{vacancy?.name}</h1>
+          <div className={styles.salary_div}>
+
+            <h1 className={styles.page_title}>{vacancy?.name}</h1>
+            {vacancy?.salaryRange?.min && <div className={styles.salary}>${vacancy.salaryRange.min} - ${vacancy.salaryRange.max}</div>}
+
+          </div>
+
         </div>
         <div className={styles.company_info_div}>
           <img

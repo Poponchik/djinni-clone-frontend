@@ -82,9 +82,15 @@ function JobBoard() {
               {vacancies?.map((vacancy) => {
                 return (
                   <div className={styles.vacancy}>
-                    <Link to={`/vacancy/${vacancy._id}`} className={styles.link}>
-                      <h3 className={styles.vacancy_title}>{vacancy.name}</h3>
-                    </Link>
+                    <div className={styles.salary_div}>
+
+                      <Link to={`/vacancy/${vacancy._id}`} className={styles.link}>
+                        <h3 className={styles.vacancy_title}>{vacancy.name}</h3>
+                      </Link>
+                      {vacancy.salaryRange.min && <div className={styles.salary}>${vacancy.salaryRange.min} - ${vacancy.salaryRange.max}</div>}
+
+
+                    </div>
                     <p className={styles.vacancy_info}>
                       {vacancy.shortDescription}
                     </p>
