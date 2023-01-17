@@ -12,7 +12,7 @@ function Vacancy() {
   const [vacancy, setVacancy] = useState({});
   const [coverLetter, setCoverLetter] = useState("");
   const [cv, setCV] = useState("");
-
+  
   const userData = JSON.parse(localStorage.getItem("userData"));
   const { vacancyId } = useParams();
 
@@ -101,6 +101,8 @@ function Vacancy() {
               multiple
               onChange={(e) => uploadImages(e.target.files)}
             />
+
+            <span>{cv[0]?.name}</span>
           </div>
         )}
 

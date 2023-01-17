@@ -14,10 +14,10 @@ function Registration() {
 
     async function registration() {
         const formData = new FormData();
-        formData.append("name", name);
-        formData.append("description", email);
-        formData.append("siteLink", password);
-        formData.append("douLink", role);
+        formData.append("username", name);
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("role", role);
         formData.append("avatar", avatar[0]);
 
         const { data } = await DataService.auth.registration(formData)
