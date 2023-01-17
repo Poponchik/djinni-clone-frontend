@@ -1,5 +1,7 @@
 .container {
     color: #333;
+    margin-bottom: 60px;
+
 }
 
 .inner_container {
@@ -109,4 +111,7 @@
     color: #186FC5;
 }
 
+.link_div{
+    margin-top: 32px;
+}
 

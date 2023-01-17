@@ -2,6 +2,7 @@ import * as React from "react";
 import styles from "./styles/companyInfo.module.css";
 import { useState } from "react";
 import DataService from "./ds";
+import UploadPhoto from './uploadPhoto'
 
 const initialInputValues = {
   name: "",
@@ -12,16 +13,16 @@ const initialInputValues = {
 
 function CompanyInfo() {
   const [avatar, setAvatar] = useState("");
-
+  // const [src, setSrc] = useState("");
   const [inputValues, setInputValues] = useState(initialInputValues);
 
   function onInputChange(event) {
     setInputValues({ ...inputValues, [event.target.name]: event.target.value });
+
   }
   const companyId = localStorage.getItem("companyId");
 
   async function updateCompany() {
-    console.log({ inputValues });
     const formData = new FormData();
     formData.append("name", inputValues.name);
     formData.append("description", inputValues.description);
@@ -31,16 +32,10 @@ function CompanyInfo() {
 
     await DataService.company.update(companyId, formData);
 
-    setInputValues({...initialInputValues});
+    setInputValues({ ...initialInputValues });
   }
 
-  function uploadImages(file) {
-    if (file) {
-      setAvatar(file);
-    } else {
-      console.log("file error");
-    }
-  }
+ 
 
   return (
     <div className={styles.container}>
@@ -80,23 +75,8 @@ function CompanyInfo() {
                 onChange={(event) => onInputChange(event)}
               ></input>
             </div>
-            <div className={styles.preview_images_div}>
-              <div className={styles.preview_images}></div>
-              <div className={styles.upload_image_div}>
-                <label
-                  htmlFor="file-upload"
-                  className={styles.custom_file_upload}
-                >
-                  Завантажити фото
-                </label>
-              </div>
-              <input
-                id="file-upload"
-                type="file"
-                multiple
-                onChange={(e) => uploadImages(e.target.files)}
-              />
-            </div>
+            <UploadPhoto value = {avatar} onChange = {setAvatar}/>
+            
           </div>
 
           <button

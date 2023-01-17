@@ -63,10 +63,11 @@ function RecrutiersJobList() {
             </div>
           );
         })}
-
-        <Link to ="/" className={styles.link} >
-          <a className={styles.link_to_vacancies}>Дивитися вакансії інших</a>
-        </Link>
+        <div className={styles.link_div}>
+          <Link to="/" className={styles.link} >
+            <a className={styles.link_to_vacancies}>Дивитися вакансії інших</a>
+          </Link>
+        </div>
       </div>
 
     </div>

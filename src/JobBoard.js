@@ -74,7 +74,7 @@ function JobBoard() {
     <div className={styles.container}>
       <div className={styles.inner_container}>
         <div className={styles.page_title_div}>
-          <h1 className={styles.page_title}>Вакансії на Profound</h1>
+          <h1 className={styles.page_title}>Вакансії на proFound</h1>
           <h1 className={styles.vacancy_count}>{vacancies.length}</h1>
         </div>
 
