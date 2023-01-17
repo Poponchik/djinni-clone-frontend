@@ -23,12 +23,11 @@ function Registration() {
         const { data } = await DataService.auth.registration(formData)
 
         if (role === 'Recruter') {
-            localStorage.setItem('companyId', data.companyId)
-            localStorage.setItem('token', data.token)
+            localStorage.setItem('token', data)
             localStorage.setItem('userData', JSON.stringify(getUser()))
             window.location.href = '/companyInfo'
         } else {
-            localStorage.setItem('token', data.token)
+            localStorage.setItem('token', data)
             localStorage.setItem('userData', JSON.stringify(getUser()))
             window.location.href = '/'
         }

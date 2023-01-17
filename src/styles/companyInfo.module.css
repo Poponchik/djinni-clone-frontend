@@ -65,9 +65,6 @@ input {
     background-color: #186FC5;
     color: #fff;
     font-size: 18px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .main_button:hover {
@@ -76,4 +73,18 @@ input {
 
 .link {
     text-decoration: none;
+}
+
+textarea {
+    resize: vertical;
+    margin-top: 14px;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+    min-height: 200px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    color: #777777;
+    border: 1px solid #777777;
+    margin: 0;
 }

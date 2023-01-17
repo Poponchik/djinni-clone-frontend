@@ -1,8 +1,10 @@
 import * as React from "react";
 import styles from "../styles/companyInfo.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DataService from "../ds";
-import UploadPhoto from './UploadPhoto'
+import UploadPhoto from "./UploadPhoto";
+import { getUser } from "../utils";
+import { config, unAuthorizedAxios } from "../config";
 
 const initialInputValues = {
   name: "",
@@ -13,13 +15,12 @@ const initialInputValues = {
 
 function CompanyInfo() {
   const [avatar, setAvatar] = useState("");
-  // const [src, setSrc] = useState("");
   const [inputValues, setInputValues] = useState(initialInputValues);
 
   function onInputChange(event) {
     setInputValues({ ...inputValues, [event.target.name]: event.target.value });
-
   }
+
   const companyId = localStorage.getItem("companyId");
 
   async function updateCompany() {
@@ -35,7 +36,22 @@ function CompanyInfo() {
     setInputValues({ ...initialInputValues });
   }
 
- 
+  async function fetchData() {
+    const { companyId } = getUser();
+    const { data } = await DataService.company.getById(companyId);
+
+    setInputValues({
+      name: data.name,
+      description: data.description,
+      douLink: data.douLink,
+      siteLink: data.siteLink,
+    });
+
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -53,13 +69,13 @@ function CompanyInfo() {
                 value={inputValues.name}
                 onChange={(event) => onInputChange(event)}
               ></input>
-              <input
+              <textarea
                 name="description"
                 placeholder="Короткий опис"
                 className={styles.input}
                 value={inputValues.description}
                 onChange={(event) => onInputChange(event)}
-              ></input>
+              ></textarea>
               <input
                 name="siteLink"
                 placeholder="Посилання на сайт компанії"
@@ -75,8 +91,7 @@ function CompanyInfo() {
                 onChange={(event) => onInputChange(event)}
               ></input>
             </div>
-            <UploadPhoto value = {avatar} onChange = {setAvatar}/>
-            
+            <UploadPhoto value={avatar} onChange={setAvatar} />
           </div>
 
           <button
