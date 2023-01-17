@@ -1,8 +1,7 @@
-import styles from "./styles/header.module.css";
-import { MdLogout, MdOutlineLogout } from "react-icons/md";
+import styles from "../styles/header.module.css";
+import { MdOutlineLogout } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { getUser } from "./utils";
-import { config } from "./config";
+import { config } from "../config";
 
 function Header() {
   function logout() {

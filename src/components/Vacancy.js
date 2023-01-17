@@ -1,8 +1,8 @@
-import styles from "./styles/vacancy.module.css";
+import styles from "../styles/vacancy.module.css";
 import { useParams } from "react-router-dom";
-import DataService from "./ds";
+import DataService from "../ds";
 import { useState, useEffect } from "react";
-import { config } from "./config.js";
+import { config } from "../config.js";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsFillPeopleFill } from "react-icons/bs";

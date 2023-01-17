@@ -1,8 +1,8 @@
-import styles from './styles/auth.module.css';
+import styles from '../styles/auth.module.css';
 import { Link } from "react-router-dom";
 import { useState } from 'react';
-import DataService from './ds';
-import { getUser } from './utils';
+import DataService from '../ds';
+import { getUser } from '../utils';
 import UploadPhoto from './UploadPhoto'
 
 function Registration() {

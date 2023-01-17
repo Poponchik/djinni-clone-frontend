@@ -1,5 +1,5 @@
 import * as React from "react";
-import { getUser } from "./utils";
+import { getUser } from "../utils";
 import { Navigate } from "react-router-dom";
 
 function AuthorizedComponent({ component }) {

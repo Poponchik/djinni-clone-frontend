@@ -1,8 +1,7 @@
-import styles from "./styles/createVacancy.module.css";
-import { Link } from "react-router-dom";
+import styles from "../styles/createVacancy.module.css";
 import { useState } from "react";
-import filters from "./filters.json";
-import DataService from "./ds";
+import filters from "../filters.json";
+import DataService from "../ds";
 
 function CreateVacancy() {
   const [inputValues, setInputValues] = useState({

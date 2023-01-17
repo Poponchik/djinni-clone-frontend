@@ -1,8 +1,8 @@
-import styles from "./styles/recrutiersJobList.module.css";
+import styles from "../styles/recrutiersJobList.module.css";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import DataService from "./ds";
-import { config } from "./config.js";
+import DataService from "../ds";
+import { config } from "../config.js";
 
 function RecrutiersJobList() {
   const [vacancies, setVacancies] = useState([]);

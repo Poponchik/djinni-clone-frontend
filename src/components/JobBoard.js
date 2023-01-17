@@ -1,11 +1,9 @@
-import logo from "./logo.svg";
-import styles from "./styles/jobBoard.module.css";
-import { MdLocationOn } from "react-icons/md";
-import filters from "./filters.json";
-import DataService from "./ds";
+import styles from "../styles/jobBoard.module.css";
+import filters from "../filters.json";
+import DataService from "../ds";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { config } from "./config.js";
+import { config } from "../config.js";
 function JobBoard() {
   const [vacancies, setVacancies] = useState([]);
 
