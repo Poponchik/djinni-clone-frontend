@@ -2,7 +2,7 @@ import * as React from "react";
 import styles from "./styles/companyInfo.module.css";
 import { useState } from "react";
 import DataService from "./ds";
-import UploadPhoto from './uploadPhoto'
+import UploadPhoto from './UploadPhoto'
 
 const initialInputValues = {
   name: "",

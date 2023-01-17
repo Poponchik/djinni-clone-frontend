@@ -5,13 +5,8 @@ export class Auth {
         this.prefix = '/auth'
     }
 
-    async registration(username, email, password, role) {
-        return unAuthorizedAxios.post(`${this.prefix}/registration`, {
-            username,
-            email,
-            password,
-            role,
-        })
+    async registration(formData) {
+        return unAuthorizedAxios.post(`${this.prefix}/registration`, formData)
 
     }
 
