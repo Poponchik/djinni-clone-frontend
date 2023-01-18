@@ -21,7 +21,6 @@ function CompanyInfo() {
     setInputValues({ ...inputValues, [event.target.name]: event.target.value });
   }
 
-  const companyId = localStorage.getItem("companyId");
 
   async function updateCompany() {
     const formData = new FormData();
@@ -31,9 +30,12 @@ function CompanyInfo() {
     formData.append("douLink", inputValues.douLink);
     formData.append("avatar", avatar[0]);
 
+    const companyId = JSON.parse(localStorage.getItem("userData")).companyId;
+
     await DataService.company.update(companyId, formData);
 
     setInputValues({ ...initialInputValues });
+    window.location.href = '/myVacancies'
   }
 
   async function fetchData() {
