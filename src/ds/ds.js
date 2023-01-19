@@ -5,12 +5,12 @@ export class Auth {
         this.prefix = '/auth'
     }
 
-    async registration(formData) {
+    async register(formData) {
         return unAuthorizedAxios.post(`${this.prefix}/registration`, formData)
 
     }
 
-    async authorization(email, password) {
+    async login(email, password) {
         return unAuthorizedAxios.post(`${this.prefix}/login`, {
             email,
             password,

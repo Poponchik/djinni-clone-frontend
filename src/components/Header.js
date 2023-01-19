@@ -2,6 +2,7 @@ import styles from "../styles/header.module.css";
 import { MdOutlineLogout } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { config } from "../config";
+import { getUser } from "../utils";
 
 function Header() {
   function logout() {
@@ -9,7 +10,7 @@ function Header() {
     window.location.href = "/login";
   }
 
-  const userData = JSON.parse(localStorage.getItem("userData"));
+  const userData = getUser();
 
   return (
     <header className={styles.header}>
@@ -44,7 +45,6 @@ function Header() {
             <div className={styles.user_info}>
               <div className={styles.user_fullname}>
                 <p className={styles.user_name}>{userData.username}</p>
-                {/* <p className={styles.user_lastname}>Vivcharuk</p> */}
               </div>
               <p className={styles.user_email}>{userData.email}</p>
             </div>

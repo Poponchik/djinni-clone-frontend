@@ -30,9 +30,9 @@ function JobBoard() {
       if (filter.experience === number) {
         number = null;
       }
-      setFilter((prev) => {
+      setFilter((previos) => {
         return {
-          ...prev,
+          ...previos,
           experience: number,
         };
       });
@@ -46,9 +46,9 @@ function JobBoard() {
       } else {
         result.push(specialty);
       }
-      setFilter((prev) => {
+      setFilter((previos) => {
         return {
-          ...prev,
+          ...previos,
           specialty: result,
         };
       });
@@ -61,8 +61,6 @@ function JobBoard() {
 
     return operations[key](value);
   }
-
-  console.log({ filter });
 
   useEffect(() => {
     getByFitler();
@@ -83,13 +81,18 @@ function JobBoard() {
                 return (
                   <div className={styles.vacancy}>
                     <div className={styles.salary_div}>
-
-                      <Link to={`/vacancy/${vacancy._id}`} className={styles.link}>
+                      <Link
+                        to={`/vacancy/${vacancy._id}`}
+                        className={styles.link}
+                      >
                         <h3 className={styles.vacancy_title}>{vacancy.name}</h3>
                       </Link>
-                      {vacancy.salaryRange.min && <div className={styles.salary}>${vacancy.salaryRange.min} - ${vacancy.salaryRange.max}</div>}
-
-
+                      {vacancy.salaryRange.min && (
+                        <div className={styles.salary}>
+                          ${vacancy.salaryRange.min} - $
+                          {vacancy.salaryRange.max}
+                        </div>
+                      )}
                     </div>
                     <p className={styles.vacancy_info}>
                       {vacancy.shortDescription}
@@ -107,7 +110,6 @@ function JobBoard() {
                           {vacancy.company.name}{" "}
                         </h4>
                         <div className={styles.location_div}>
-                          {/* <MdLocationOn size={16} className={styles.location_logo} /> */}
                           <p className={styles.location}>
                             {" "}
                             {vacancy.creator?.username}

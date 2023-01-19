@@ -1,6 +1,7 @@
 import styles from "../styles/uploadPhoto.module.css";
 
-function UploadPhoto({ value, onChange }) {
+function UploadFile({ value, onChange, multiple = false }) {
+  
   function uploadImages(file) {
     if (file) {
       onChange(file);
@@ -22,17 +23,17 @@ function UploadPhoto({ value, onChange }) {
       </div>
       <div className={styles.upload_image_div}>
         <label htmlFor="file-upload" className={styles.custom_file_upload}>
-          Завантажити фото
+          Завантажити файл
         </label>
       </div>
       <input
         id="file-upload"
         type="file"
-        multiple
+        multiple = {multiple}
         onChange={(e) => uploadImages(e.target.files)}
       />
     </div>
   );
 }
 
-export default UploadPhoto;
+export default UploadFile;

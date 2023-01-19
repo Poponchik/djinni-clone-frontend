@@ -1,25 +1,23 @@
 import styles from "../styles/createVacancy.module.css";
-import { useState } from "react";
 import filters from "../filters.json";
 import DataService from "../ds";
+import { useInput } from "../customHooks/useInput";
+
+const initialInputValues = {
+  name: "",
+  shortDescription: "",
+  detailedDescription: "",
+  min: "",
+  max: "",
+  specialty: "",
+  experience: "",
+  salaryRange: "",
+};
 
 function CreateVacancy() {
-  const [inputValues, setInputValues] = useState({
-    name: "",
-    shortDescription: "",
-    detailedDescription: "",
-    min: "",
-    max: "",
-    specialty: "",
-    experience: "",
-    salaryRange: "",
-  });
+  const {inputValues, setInputValues, setDefaultValues} = useInput(initialInputValues);
 
   const { specialties } = filters;
-
-  function onInputChange(event) {
-    setInputValues({ ...inputValues, [event.target.name]: event.target.value });
-  }
 
   async function create() {
     await DataService.vacancy.create({
@@ -34,16 +32,7 @@ function CreateVacancy() {
       experience: +inputValues.experience,
     });
 
-    setInputValues({
-      name: "",
-      shortDescription: "",
-      detailedDescription: "",
-      min: "",
-      max: "",
-      specialty: "",
-      experience: "",
-      salaryRange: "",
-    });
+    setDefaultValues(initialInputValues);
     window.location.href = "/myVacancies";
   }
 
@@ -61,7 +50,7 @@ function CreateVacancy() {
               className={styles.input}
               name="name"
               value={inputValues.name}
-              onChange={onInputChange}
+              onChange={setInputValues}
             ></input>
             <p className={styles.hint}>
               Наприклад: Java-лід на банківський проект
@@ -73,7 +62,7 @@ function CreateVacancy() {
               className={styles.input}
               name="shortDescription"
               value={inputValues.shortDescription}
-              onChange={onInputChange}
+              onChange={setInputValues}
             ></textarea>
             <p className={styles.hint}>
               Зацікавте кандидата. Джин використовує цей опис у розсилках та на
@@ -86,7 +75,7 @@ function CreateVacancy() {
               className={styles.input}
               name="detailedDescription"
               value={inputValues.detailedDescription}
-              onChange={onInputChange}
+              onChange={setInputValues}
             ></textarea>
             <p className={styles.hint}>
               Вимоги, обов'язки, проект, команда, умови праці, компенсаційний
@@ -100,7 +89,7 @@ function CreateVacancy() {
               aria-label="Default select example"
               name="specialty"
               value={inputValues.specialty}
-              onChange={onInputChange}
+              onChange={setInputValues}
             >
               <option value="0">(Оберіть посаду)</option>
               <option disabled className={styles.select_disable_element}>
@@ -122,12 +111,11 @@ function CreateVacancy() {
           <div className={styles.answer_div_salary}>
             <div className={styles.salary_div}>
               <p>Від</p>
-
               <input
                 className={styles.input_salary}
                 name="min"
                 value={inputValues.min}
-                onChange={onInputChange}
+                onChange={setInputValues}
               ></input>
             </div>
 
@@ -137,7 +125,7 @@ function CreateVacancy() {
                 className={styles.input_salary}
                 name="max"
                 value={inputValues.max}
-                onChange={onInputChange}
+                onChange={setInputValues}
               ></input>
             </div>
           </div>
@@ -148,7 +136,7 @@ function CreateVacancy() {
               aria-label="Default select example"
               name="experience"
               value={inputValues.experience}
-              onChange={onInputChange}
+              onChange={setInputValues}
             >
               <option value="0">Без досвіду</option>
               <option value="1">1 рік</option>

@@ -7,13 +7,19 @@ import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsFillPeopleFill } from "react-icons/bs";
 import moment from "moment";
+import { createFormDataFromObject, getUser } from "../utils";
+import { useInput } from "../customHooks/useInput";
+import UploadFile from "./UploadFile";
 
+const initialInputValues = {
+  coverLetter: ''
+}
 function Vacancy() {
   const [vacancy, setVacancy] = useState({});
-  const [coverLetter, setCoverLetter] = useState("");
+  const { inputValues, setInputValues, setDefaultValues } = useInput(initialInputValues);
   const [cv, setCV] = useState("");
 
-  const userData = JSON.parse(localStorage.getItem("userData"));
+  const userData = getUser();
   const { vacancyId } = useParams();
 
   async function getVacancy() {
@@ -22,27 +28,22 @@ function Vacancy() {
   }
 
   async function apply() {
-    const formData = new FormData();
-    formData.append("coverLetter", coverLetter);
-    formData.append("CV", cv[0]);
+    const formData = createFormDataFromObject({
+      coverLetter: inputValues.coverLetter,
+      CV: cv[0],
+    });
 
     await DataService.vacancy.apply(vacancyId, formData);
-    setCV("");
-    setCoverLetter("");
-    getVacancy();
-  }
 
-  function uploadImages(file) {
-    if (file) {
-      setCV(file);
-    } else {
-      console.log("file error");
-    }
+    setCV("");
+    setDefaultValues(initialInputValues);
+
+    getVacancy();
   }
 
   useEffect(() => {
     getVacancy();
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, [vacancyId]);
 
   return (
@@ -50,12 +51,13 @@ function Vacancy() {
       <div className={styles.inner_container}>
         <div className={styles.page_title_div}>
           <div className={styles.salary_div}>
-
             <h1 className={styles.page_title}>{vacancy?.name}</h1>
-            {vacancy?.salaryRange?.min && <div className={styles.salary}>${vacancy.salaryRange.min} - ${vacancy.salaryRange.max}</div>}
-
+            {vacancy?.salaryRange?.min && (
+              <div className={styles.salary}>
+                ${vacancy.salaryRange.min} - ${vacancy.salaryRange.max}
+              </div>
+            )}
           </div>
-
         </div>
         <div className={styles.company_info_div}>
           <img
@@ -67,7 +69,6 @@ function Vacancy() {
           <div className={styles.company_info}>
             <h4 className={styles.company_name}>{vacancy?.company?.name}</h4>
             <div className={styles.location_div}>
-              {/* <MdLocationOn size={16} className={styles.location_logo} /> */}
               <p className={styles.location}>{vacancy?.creator?.username}</p>
             </div>
           </div>
@@ -89,10 +90,11 @@ function Vacancy() {
         {vacancy.isAlreadyApplied || userData.role === "Recruter" ? null : (
           <div className={styles.aplication_div}>
             <textarea
-              value={coverLetter}
+              name="coverLetter"
+              value={inputValues.coverLetter}
               placeholder="Cover letter"
               className={styles.cover_letter}
-              onChange={(event) => setCoverLetter(event.target.value)}
+              onChange={setInputValues}
             ></textarea>
             <div className={styles.upload_image_div}>
               <label
@@ -102,12 +104,7 @@ function Vacancy() {
                 Завантажити CV
               </label>
             </div>
-            <input
-              id="file-upload"
-              type="file"
-              multiple
-              onChange={(e) => uploadImages(e.target.files)}
-            />
+            <UploadFile value={cv} onChange={setCV} />
 
             <span>{cv[0]?.name}</span>
           </div>
@@ -121,7 +118,7 @@ function Vacancy() {
         </div>
 
         <div className={styles.site_div}>
-          <p className={styles.site_title}>Сторінка на Dou:</p>
+          <p className={styles.site_title}>Сайт компанії:</p>
           <a className={styles.site_link} href={vacancy?.company?.siteLink}>
             {vacancy?.company?.siteLink}
           </a>

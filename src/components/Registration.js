@@ -1,91 +1,107 @@
-import styles from '../styles/auth.module.css';
+import styles from "../styles/auth.module.css";
 import { Link } from "react-router-dom";
-import { useState } from 'react';
-import DataService from '../ds';
-import { getUser } from '../utils';
-import UploadPhoto from './UploadPhoto'
+import DataService from "../ds";
+import UploadFile from "./UploadFile";
+import { useInput } from "../customHooks/useInput";
+import { useState } from "react";
+import { createFormDataFromObject } from "../utils";
+
+const initialInputValues = {
+  email: "",
+  password: "",
+  role: "",
+  username: "",
+};
 
 function Registration() {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [role, setRole] = useState('')
-    const [name, setName] = useState('')
-    const [avatar, setAvatar] = useState("");
+  const {inputValues, setInputValues, setDefaultValues} = useInput(initialInputValues);
+  const [avatar, setAvatar] = useState(null);
 
-    async function registration() {
-        const formData = new FormData();
-        formData.append("username", name);
-        formData.append("email", email);
-        formData.append("password", password);
-        formData.append("role", role);
-        formData.append("avatar", avatar[0]);
+  async function register() {
+    const formData = createFormDataFromObject({...inputValues, avatar: avatar[0]})
 
-        const { data } = await DataService.auth.registration(formData)
+    const { data } = await DataService.auth.register(formData);
 
-        if (role === 'Recruter') {
-            localStorage.setItem('token', data)
-            localStorage.setItem('userData', JSON.stringify(getUser()))
-            window.location.href = '/companyInfo'
-        } else {
-            localStorage.setItem('token', data)
-            localStorage.setItem('userData', JSON.stringify(getUser()))
-            window.location.href = '/'
-        }
+    localStorage.setItem("token", data);
+    setDefaultValues(initialInputValues);
 
-        setName('')
-        setEmail('')
-        setPassword('')
-        setRole('')
-
+    if (inputValues.role === "Recruter") {
+      window.location.href = "/companyInfo";
+    } else {
+      window.location.href = "/";
     }
+  }
 
-    return (
-        <div className={styles.container}>
-            <div className={styles.inner_container}>
-                <div className={styles.page_content}>
-                    <h1 className={styles.page_title}>Зареєструватись на  <strong>proFound</strong></h1>
-                    <div className={styles.registration_form}>
-                        <div className={styles.inputs}>
-                            <input placeholder='Імя' className={styles.input}
-                                onChange={event => setName(event.target.value)}
-                            ></input>
-                            <input value={email} placeholder='Email' className={styles.input}
-                                onChange={(event) => setEmail(event.target.value)}
-                            ></input>
-                            <input value={password} type="password" placeholder='Пароль' className={styles.input}
-                                onChange={(event) => setPassword(event.target.value)}
-                            ></input>
-                            <div className={styles.options_div}>
-                                <div className={styles.option}>
-                                    <input type="radio" id="role1" name="role" value="Recruter"
-                                        onChange={(event) => setRole(event.target.value)}
-                                    />
-                                    <label className={styles.role} htmlFor="role1">Я роботодавець - шукаю розробників</label>
-                                </div>
-
-                                <div className={styles.option}>
-                                    <input type="radio" id="role2" name="role" value="Candidate"
-                                        onChange={(event) => setRole(event.target.value)}
-                                    />
-                                    <label className={styles.role} htmlFor="role2">Я кандидат - шукаю пропозиції</label>
-                                </div>
-
-                            </div>
-                        </div>
-                        <UploadPhoto value={avatar} onChange={setAvatar}/>
-                    </div>
-
-                    <button className={styles.main_button} onClick={() => registration()}>Продовжити</button>
-                    <Link to='/login' className={styles.link}>
-                        <p className={styles.have_account}> Я вже маю акаунт</p>
-                    </Link>
-
-
-
+  return (
+    <div className={styles.container}>
+      <div className={styles.inner_container}>
+        <div className={styles.page_content}>
+          <h1 className={styles.page_title}>
+            Зареєструватись на <strong>proFound</strong>
+          </h1>
+          <div className={styles.registration_form}>
+            <div className={styles.inputs}>
+              <input
+                placeholder="Імя"
+                name="username"
+                className={styles.input}
+                onChange={setInputValues}
+              ></input>
+              <input
+                value={inputValues.email}
+                placeholder="Email"
+                name="email"
+                className={styles.input}
+                onChange={setInputValues}
+              ></input>
+              <input
+                value={inputValues.password}
+                type="password"
+                name="password"
+                placeholder="Пароль"
+                className={styles.input}
+                onChange={setInputValues}
+              ></input>
+              <div className={styles.options_div}>
+                <div className={styles.option}>
+                  <input
+                    type="radio"
+                    id="recruter"
+                    name="role"
+                    value="Recruter"
+                    onChange={setInputValues}
+                  />
+                  <label className={styles.role} htmlFor="recruter">
+                    Я роботодавець - шукаю розробників
+                  </label>
                 </div>
+
+                <div className={styles.option}>
+                  <input
+                    type="radio"
+                    id="candidate"
+                    name="role"
+                    value="Candidate"
+                    onChange={setInputValues}
+                  />
+                  <label className={styles.role} htmlFor="candidate">
+                    Я кандидат - шукаю пропозиції
+                  </label>
+                </div>
+              </div>
             </div>
+            <UploadFile value={avatar} onChange={setAvatar} />
+          </div>
+          <button className={styles.main_button} onClick={register}>
+            Продовжити
+          </button>
+          <Link to="/login" className={styles.link}>
+            <p className={styles.have_account}> Я вже маю акаунт</p>
+          </Link>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default Registration;

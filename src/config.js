@@ -1,16 +1,34 @@
-import axios from 'axios'
+import axios from "axios";
 
 export const config = {
-    serverUrl: 'http://localhost:5000'
-}
+  serverUrl: "http://localhost:5000",
+};
 
 export const authorizedAxios = axios.create({
-    baseURL: config.serverUrl
+  baseURL: config.serverUrl,
+  headers: {
+    authorization: localStorage.getItem("token"),
+  },
 });
-
-authorizedAxios.defaults.headers.common['authorization'] = `${localStorage.getItem('token')}`;
-
 
 export const unAuthorizedAxios = axios.create({
-    baseURL: config.serverUrl
+  baseURL: config.serverUrl,
 });
+
+authorizedAxios.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    return alert(error.message);
+  }
+);
+
+unAuthorizedAxios.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    return alert(error.message);
+  }
+);

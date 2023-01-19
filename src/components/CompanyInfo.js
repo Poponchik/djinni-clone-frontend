@@ -2,9 +2,9 @@ import * as React from "react";
 import styles from "../styles/companyInfo.module.css";
 import { useState, useEffect } from "react";
 import DataService from "../ds";
-import UploadPhoto from "./UploadPhoto";
-import { getUser } from "../utils";
-import { config, unAuthorizedAxios } from "../config";
+import UploadFile from "./UploadFile";
+import { createFormDataFromObject, getUser } from "../utils";
+import { useInput } from "../customHooks/useInput";
 
 const initialInputValues = {
   name: "",
@@ -15,39 +15,23 @@ const initialInputValues = {
 
 function CompanyInfo() {
   const [avatar, setAvatar] = useState("");
-  const [inputValues, setInputValues] = useState(initialInputValues);
-
-  function onInputChange(event) {
-    setInputValues({ ...inputValues, [event.target.name]: event.target.value });
-  }
-
+  const {inputValues, setInputValues, setDefaultValues} = useInput(initialInputValues);
 
   async function updateCompany() {
-    const formData = new FormData();
-    formData.append("name", inputValues.name);
-    formData.append("description", inputValues.description);
-    formData.append("siteLink", inputValues.siteLink);
-    formData.append("douLink", inputValues.douLink);
-    formData.append("avatar", avatar[0]);
+    const formData = createFormDataFromObject({...inputValues, avatar: avatar[0]})
 
-    const companyId = JSON.parse(localStorage.getItem("userData")).companyId;
+    const companyId = getUser().companyId;
 
     await DataService.company.update(companyId, formData);
 
-    setInputValues({ ...initialInputValues });
+    setDefaultValues(initialInputValues);
     window.location.href = '/myVacancies'
   }
 
   async function fetchData() {
     const { companyId } = getUser();
     const { data } = await DataService.company.getById(companyId);
-
-    setInputValues({
-      name: data.name,
-      description: data.description,
-      douLink: data.douLink,
-      siteLink: data.siteLink,
-    });
+    setDefaultValues(data);
 
   }
 
@@ -69,31 +53,31 @@ function CompanyInfo() {
                 placeholder="Назва компанії"
                 className={styles.input}
                 value={inputValues.name}
-                onChange={(event) => onInputChange(event)}
+                onChange={setInputValues}
               ></input>
               <textarea
                 name="description"
                 placeholder="Короткий опис"
                 className={styles.input}
                 value={inputValues.description}
-                onChange={(event) => onInputChange(event)}
+                onChange={setInputValues}
               ></textarea>
               <input
                 name="siteLink"
                 placeholder="Посилання на сайт компанії"
                 className={styles.input}
                 value={inputValues.siteLink}
-                onChange={(event) => onInputChange(event)}
+                onChange={setInputValues}
               ></input>
               <input
                 name="douLink"
                 placeholder="Посилання на Dou"
                 className={styles.input}
                 value={inputValues.douLink}
-                onChange={(event) => onInputChange(event)}
+                onChange={setInputValues}
               ></input>
             </div>
-            <UploadPhoto value={avatar} onChange={setAvatar} />
+            <UploadFile value={avatar} onChange={setAvatar} />
           </div>
 
           <button
