@@ -16,7 +16,7 @@ const initialInputValues = {
 }
 function Vacancy() {
   const [vacancy, setVacancy] = useState({});
-  const { inputValues, setInputValues, setDefaultValues } = useInput(initialInputValues);
+  const { inputValues, onInputChange, setDefaultValues } = useInput(initialInputValues);
   const [cv, setCV] = useState("");
 
   const userData = getUser();
@@ -94,7 +94,7 @@ function Vacancy() {
               value={inputValues.coverLetter}
               placeholder="Cover letter"
               className={styles.cover_letter}
-              onChange={setInputValues}
+              onChange={onInputChange}
             ></textarea>
             <div className={styles.upload_image_div}>
               <label

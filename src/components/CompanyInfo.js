@@ -15,7 +15,7 @@ const initialInputValues = {
 
 function CompanyInfo() {
   const [avatar, setAvatar] = useState("");
-  const {inputValues, setInputValues, setDefaultValues} = useInput(initialInputValues);
+  const {inputValues, onInputChange, setDefaultValues} = useInput(initialInputValues);
 
   async function updateCompany() {
     const formData = createFormDataFromObject({...inputValues, avatar: avatar[0]})
@@ -53,28 +53,28 @@ function CompanyInfo() {
                 placeholder="Назва компанії"
                 className={styles.input}
                 value={inputValues.name}
-                onChange={setInputValues}
+                onChange={onInputChange}
               ></input>
               <textarea
                 name="description"
                 placeholder="Короткий опис"
                 className={styles.input}
                 value={inputValues.description}
-                onChange={setInputValues}
+                onChange={onInputChange}
               ></textarea>
               <input
                 name="siteLink"
                 placeholder="Посилання на сайт компанії"
                 className={styles.input}
                 value={inputValues.siteLink}
-                onChange={setInputValues}
+                onChange={onInputChange}
               ></input>
               <input
                 name="douLink"
                 placeholder="Посилання на Dou"
                 className={styles.input}
                 value={inputValues.douLink}
-                onChange={setInputValues}
+                onChange={onInputChange}
               ></input>
             </div>
             <UploadFile value={avatar} onChange={setAvatar} />

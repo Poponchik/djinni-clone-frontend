@@ -15,7 +15,7 @@ const initialInputValues = {
 };
 
 function CreateVacancy() {
-  const {inputValues, setInputValues, setDefaultValues} = useInput(initialInputValues);
+  const {inputValues, onInputChange, setDefaultValues} = useInput(initialInputValues);
 
   const { specialties } = filters;
 
@@ -50,7 +50,7 @@ function CreateVacancy() {
               className={styles.input}
               name="name"
               value={inputValues.name}
-              onChange={setInputValues}
+              onChange={onInputChange}
             ></input>
             <p className={styles.hint}>
               Наприклад: Java-лід на банківський проект
@@ -62,7 +62,7 @@ function CreateVacancy() {
               className={styles.input}
               name="shortDescription"
               value={inputValues.shortDescription}
-              onChange={setInputValues}
+              onChange={onInputChange}
             ></textarea>
             <p className={styles.hint}>
               Зацікавте кандидата. Джин використовує цей опис у розсилках та на
@@ -75,7 +75,7 @@ function CreateVacancy() {
               className={styles.input}
               name="detailedDescription"
               value={inputValues.detailedDescription}
-              onChange={setInputValues}
+              onChange={onInputChange}
             ></textarea>
             <p className={styles.hint}>
               Вимоги, обов'язки, проект, команда, умови праці, компенсаційний
@@ -89,7 +89,7 @@ function CreateVacancy() {
               aria-label="Default select example"
               name="specialty"
               value={inputValues.specialty}
-              onChange={setInputValues}
+              onChange={onInputChange}
             >
               <option value="0">(Оберіть посаду)</option>
               <option disabled className={styles.select_disable_element}>
@@ -115,7 +115,7 @@ function CreateVacancy() {
                 className={styles.input_salary}
                 name="min"
                 value={inputValues.min}
-                onChange={setInputValues}
+                onChange={onInputChange}
               ></input>
             </div>
 
@@ -125,7 +125,7 @@ function CreateVacancy() {
                 className={styles.input_salary}
                 name="max"
                 value={inputValues.max}
-                onChange={setInputValues}
+                onChange={onInputChange}
               ></input>
             </div>
           </div>
@@ -136,7 +136,7 @@ function CreateVacancy() {
               aria-label="Default select example"
               name="experience"
               value={inputValues.experience}
-              onChange={setInputValues}
+              onChange={onInputChange}
             >
               <option value="0">Без досвіду</option>
               <option value="1">1 рік</option>

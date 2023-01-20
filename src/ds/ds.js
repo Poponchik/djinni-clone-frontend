@@ -1,63 +1,112 @@
-import { unAuthorizedAxios, authorizedAxios } from '../config.js'
+import { unAuthorizedAxios, authorizedAxios } from "../config.js";
 
 export class Auth {
-    constructor() {
-        this.prefix = '/auth'
-    }
+  constructor() {
+    this.prefix = "/auth";
+  }
 
-    async register(formData) {
-        return unAuthorizedAxios.post(`${this.prefix}/registration`, formData)
-
+  async register(formData) {
+    try {
+      return unAuthorizedAxios.post(`${this.prefix}/registration`, formData);
+    } catch (e) {
+      console.log("Failed to register", e);
+      throw e;
     }
+  }
 
-    async login(email, password) {
-        return unAuthorizedAxios.post(`${this.prefix}/login`, {
-            email,
-            password,
-        })
+  async login(email, password) {
+    try {
+      return unAuthorizedAxios.post(`${this.prefix}/login`, {
+        email,
+        password,
+      });
+    } catch (e) {
+      console.log("Failed to login", e.response.data);
+      throw e;
     }
+  }
 }
 
 export class Company {
-    constructor() {
-        this.prefix = '/company'
-    }
+  constructor() {
+    this.prefix = "/company";
+  }
 
-    async update(companyId, formData) {
-        return authorizedAxios.put(`${this.prefix}/${companyId}`, formData)
+  async update(companyId, formData) {
+    try {
+      return authorizedAxios.put(`${this.prefix}/${companyId}`, formData);
+    } catch (e) {
+      console.log("Failed to register", e);
+      throw e;
     }
+  }
 
-    async getById(companyId){
-        return authorizedAxios.get(`${this.prefix}/${companyId}`)
+  async getById(companyId) {
+    try {
+      return authorizedAxios.get(`${this.prefix}/${companyId}`);
+    } catch (e) {
+      console.log("Failed to get company by id", e);
+      throw e;
     }
+  }
 }
 
 export class Vacancy {
-    constructor() {
-        this.prefix = '/vacancy'
-    }
+  constructor() {
+    this.prefix = "/vacancy";
+  }
 
-    async create(payload) {
-        return authorizedAxios.post(`${this.prefix}`, payload)
+  async create(payload) {
+    try {
+      return authorizedAxios.post(`${this.prefix}`, payload);
+    } catch (e) {
+      console.log("Failed to get company by id", e);
+      throw e;
     }
+  }
 
-    async getById(id) {
-        return authorizedAxios.get(`${this.prefix}/${id}`)
+  async getById(id) {
+    try {
+      return authorizedAxios.get(`${this.prefix}/${id}`);
+    } catch (e) {
+      console.log("Failed to get company by id", e);
+      throw e;
     }
+  }
 
-    async getByFitler(filter) {
-        return authorizedAxios.post(`${this.prefix}/filter`, filter)
+  async getByFitler(filter) {
+    try {
+      return authorizedAxios.post(`${this.prefix}/filter`, filter);
+    } catch (e) {
+      console.log("Failed to get company by id", e);
+      throw e;
     }
+  }
 
-    async getAllVacancies() {
-        return authorizedAxios.post(`${this.prefix}/filter`, {})
+  async getAllVacancies() {
+    try {
+      return authorizedAxios.post(`${this.prefix}/filter`, {});
+    } catch (e) {
+      console.log("Failed to get company by id", e);
+      throw e;
     }
+  }
 
-    async getByUser() {
-        return authorizedAxios.get(`${this.prefix}/byUser`)
+  async getByUser() {
+    try {
+      return authorizedAxios.get(`${this.prefix}/byUser`);
+    } catch (e) {
+      console.log("Failed to get company by id", e);
+      throw e;
     }
+  }
 
-    async apply(id, formData) {
-        return authorizedAxios.post(`${this.prefix}/${id}/apply`, formData)
+  async apply(id, formData) {
+    try {
+      return authorizedAxios.post(`${this.prefix}/${id}/apply`, formData);
+    } catch (e) {
+      console.log("Failed to get company by id", e);
+      throw e;
     }
+  }
 }

@@ -9,7 +9,7 @@ const initialInputValues = {
 };
 
 function Authorization() {
-  const {inputValues, setInputValues} = useInput(initialInputValues);
+  const {inputValues, onInputChange} = useInput(initialInputValues);
 
   async function login() {
     try {
@@ -21,7 +21,8 @@ function Authorization() {
       localStorage.setItem("token", data);
       window.location.href = "/";
     } catch (e) {
-      alert(e);
+      alert(e.response.data);
+      throw e
     }
   }
 
@@ -37,14 +38,14 @@ function Authorization() {
               name="email"
               placeholder="Email"
               className={styles.input}
-              onChange={setInputValues}
+              onChange={onInputChange}
             ></input>
             <input
               name="password"
               placeholder="Пароль"
               type="password"
               className={styles.input}
-              onChange={setInputValues}
+              onChange={onInputChange}
             ></input>
           </div>
           <button className={styles.main_button} onClick={() => login()}>

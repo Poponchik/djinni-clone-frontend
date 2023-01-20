@@ -14,21 +14,3 @@ export const authorizedAxios = axios.create({
 export const unAuthorizedAxios = axios.create({
   baseURL: config.serverUrl,
 });
-
-authorizedAxios.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  function (error) {
-    return alert(error.message);
-  }
-);
-
-unAuthorizedAxios.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  function (error) {
-    return alert(error.message);
-  }
-);

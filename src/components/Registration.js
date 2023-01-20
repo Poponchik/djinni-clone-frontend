@@ -14,7 +14,7 @@ const initialInputValues = {
 };
 
 function Registration() {
-  const {inputValues, setInputValues, setDefaultValues} = useInput(initialInputValues);
+  const {inputValues, onInputChange, setDefaultValues} = useInput(initialInputValues);
   const [avatar, setAvatar] = useState(null);
 
   async function register() {
@@ -45,14 +45,14 @@ function Registration() {
                 placeholder="Імя"
                 name="username"
                 className={styles.input}
-                onChange={setInputValues}
+                onChange={onInputChange}
               ></input>
               <input
                 value={inputValues.email}
                 placeholder="Email"
                 name="email"
                 className={styles.input}
-                onChange={setInputValues}
+                onChange={onInputChange}
               ></input>
               <input
                 value={inputValues.password}
@@ -60,7 +60,7 @@ function Registration() {
                 name="password"
                 placeholder="Пароль"
                 className={styles.input}
-                onChange={setInputValues}
+                onChange={onInputChange}
               ></input>
               <div className={styles.options_div}>
                 <div className={styles.option}>
@@ -69,7 +69,7 @@ function Registration() {
                     id="recruter"
                     name="role"
                     value="Recruter"
-                    onChange={setInputValues}
+                    onChange={onInputChange}
                   />
                   <label className={styles.role} htmlFor="recruter">
                     Я роботодавець - шукаю розробників
@@ -82,7 +82,7 @@ function Registration() {
                     id="candidate"
                     name="role"
                     value="Candidate"
-                    onChange={setInputValues}
+                    onChange={onInputChange}
                   />
                   <label className={styles.role} htmlFor="candidate">
                     Я кандидат - шукаю пропозиції
