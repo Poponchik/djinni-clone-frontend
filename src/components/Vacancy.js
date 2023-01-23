@@ -12,33 +12,42 @@ import { useInput } from "../customHooks/useInput";
 import UploadFile from "./UploadFile";
 
 const initialInputValues = {
-  coverLetter: ''
-}
+  coverLetter: "",
+};
 function Vacancy() {
   const [vacancy, setVacancy] = useState({});
-  const { inputValues, onInputChange, setDefaultValues } = useInput(initialInputValues);
+  const { inputValues, onInputChange, setDefaultValues } =
+    useInput(initialInputValues);
   const [cv, setCV] = useState("");
 
   const userData = getUser();
   const { vacancyId } = useParams();
 
   async function getVacancy() {
-    const { data } = await DataService.vacancy.getById(vacancyId);
-    setVacancy(data);
+    try {
+      const { data } = await DataService.vacancy.getById(vacancyId);
+      setVacancy(data);
+    } catch (e) {
+      alert(e.response.data.message);
+    }
   }
 
   async function apply() {
-    const formData = createFormDataFromObject({
-      coverLetter: inputValues.coverLetter,
-      CV: cv[0],
-    });
+    try {
+      const formData = createFormDataFromObject({
+        coverLetter: inputValues.coverLetter,
+        CV: cv[0],
+      });
 
-    await DataService.vacancy.apply(vacancyId, formData);
+      await DataService.vacancy.apply(vacancyId, formData);
 
-    setCV("");
-    setDefaultValues(initialInputValues);
+      setCV("");
+      setDefaultValues(initialInputValues);
 
-    getVacancy();
+      getVacancy();
+    } catch (e) {
+      alert(e.response.data.message);
+    }
   }
 
   useEffect(() => {

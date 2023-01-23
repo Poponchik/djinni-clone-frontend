@@ -15,25 +15,29 @@ const initialInputValues = {
 };
 
 function CreateVacancy() {
-  const {inputValues, onInputChange, setDefaultValues} = useInput(initialInputValues);
+  const { inputValues, onInputChange, setDefaultValues } = useInput(initialInputValues);
 
   const { specialties } = filters;
 
   async function create() {
-    await DataService.vacancy.create({
-      name: inputValues.name,
-      shortDescription: inputValues.shortDescription,
-      detailedDescription: inputValues.detailedDescription,
-      salaryRange: {
-        min: inputValues.min ? +inputValues.min : null,
-        max: inputValues.max ? +inputValues.max : null,
-      },
-      specialty: inputValues.specialty,
-      experience: +inputValues.experience,
-    });
+    try {
+      await DataService.vacancy.create({
+        name: inputValues.name,
+        shortDescription: inputValues.shortDescription,
+        detailedDescription: inputValues.detailedDescription,
+        salaryRange: {
+          min: inputValues.min ? +inputValues.min : null,
+          max: inputValues.max ? +inputValues.max : null,
+        },
+        specialty: inputValues.specialty,
+        experience: +inputValues.experience,
+      });
 
-    setDefaultValues(initialInputValues);
-    window.location.href = "/myVacancies";
+      setDefaultValues(initialInputValues);
+      window.location.href = "/myVacancies";
+    } catch (e) {
+      alert(e.response.data.message);
+    }
   }
 
   return (
@@ -97,13 +101,21 @@ function CreateVacancy() {
               </option>
 
               {specialties.technical.map((specialty) => {
-                return <option key={specialty} value={specialty}>{specialty}</option>;
+                return (
+                  <option key={specialty} value={specialty}>
+                    {specialty}
+                  </option>
+                );
               })}
               <option disabled className={styles.select_disable_element}>
                 Не технічні
               </option>
               {specialties.nonTechnical.map((specialty) => {
-                return <option key ={specialty} value={specialty}>{specialty}</option>;
+                return (
+                  <option key={specialty} value={specialty}>
+                    {specialty}
+                  </option>
+                );
               })}
             </select>
           </div>

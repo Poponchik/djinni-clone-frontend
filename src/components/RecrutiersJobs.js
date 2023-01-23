@@ -8,8 +8,12 @@ function RecrutiersJobList() {
   const [vacancies, setVacancies] = useState([]);
 
   async function getAllVacancies() {
-    const { data } = await DataService.vacancy.getByUser();
-    setVacancies(data);
+    try {
+      const { data } = await DataService.vacancy.getByUser();
+      setVacancies(data);
+    } catch (e) {
+      alert(e.response.data.message);
+    }
   }
 
   useEffect(() => {

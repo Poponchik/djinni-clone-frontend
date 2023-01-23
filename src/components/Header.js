@@ -5,6 +5,7 @@ import { config } from "../config";
 import { getUser } from "../utils";
 
 function Header() {
+  
   function logout() {
     localStorage.clear();
     window.location.href = "/login";

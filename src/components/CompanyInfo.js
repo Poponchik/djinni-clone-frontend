@@ -15,28 +15,39 @@ const initialInputValues = {
 
 function CompanyInfo() {
   const [avatar, setAvatar] = useState("");
-  const {inputValues, onInputChange, setDefaultValues} = useInput(initialInputValues);
+  const { inputValues, onInputChange, setDefaultValues } =
+    useInput(initialInputValues);
 
   async function updateCompany() {
-    const formData = createFormDataFromObject({...inputValues, avatar: avatar[0]})
+    try {
+      const formData = createFormDataFromObject({
+        ...inputValues,
+        avatar: avatar?.[0],
+      });
 
-    const companyId = getUser().companyId;
+      const companyId = getUser().companyId;
 
-    await DataService.company.update(companyId, formData);
+      await DataService.company.update(companyId, formData);
 
-    setDefaultValues(initialInputValues);
-    window.location.href = '/myVacancies'
+      setDefaultValues(initialInputValues);
+      window.location.href = "/myVacancies";
+    } catch (e) {
+      alert(e.response.data.message);
+    }
   }
 
-  async function fetchData() {
-    const { companyId } = getUser();
-    const { data } = await DataService.company.getById(companyId);
-    setDefaultValues(data);
-
+  async function fetchCompanyInfo() {
+    try {
+      const { companyId } = getUser();
+      const { data } = await DataService.company.getById(companyId);
+      setDefaultValues(data);
+    } catch (e) {
+      alert(e.response.data.message);
+    }
   }
 
   useEffect(() => {
-    fetchData();
+    fetchCompanyInfo();
   }, []);
 
   return (

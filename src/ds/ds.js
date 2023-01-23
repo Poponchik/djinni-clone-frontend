@@ -7,7 +7,7 @@ export class Auth {
 
   async register(formData) {
     try {
-      return unAuthorizedAxios.post(`${this.prefix}/registration`, formData);
+      await unAuthorizedAxios.post(`${this.prefix}/registration`, formData);
     } catch (e) {
       console.log("Failed to register", e);
       throw e;
@@ -36,7 +36,7 @@ export class Company {
     try {
       return authorizedAxios.put(`${this.prefix}/${companyId}`, formData);
     } catch (e) {
-      console.log("Failed to register", e);
+      console.log("Failed to update company", e);
       throw e;
     }
   }
@@ -78,16 +78,7 @@ export class Vacancy {
     try {
       return authorizedAxios.post(`${this.prefix}/filter`, filter);
     } catch (e) {
-      console.log("Failed to get company by id", e);
-      throw e;
-    }
-  }
-
-  async getAllVacancies() {
-    try {
-      return authorizedAxios.post(`${this.prefix}/filter`, {});
-    } catch (e) {
-      console.log("Failed to get company by id", e);
+      console.log("Failed to get vacancies by filter", e);
       throw e;
     }
   }
@@ -96,7 +87,7 @@ export class Vacancy {
     try {
       return authorizedAxios.get(`${this.prefix}/byUser`);
     } catch (e) {
-      console.log("Failed to get company by id", e);
+      console.log("Failed to get vacancies by user", e);
       throw e;
     }
   }
@@ -105,7 +96,7 @@ export class Vacancy {
     try {
       return authorizedAxios.post(`${this.prefix}/${id}/apply`, formData);
     } catch (e) {
-      console.log("Failed to get company by id", e);
+      console.log("Failed to apply for a vacancy", e);
       throw e;
     }
   }

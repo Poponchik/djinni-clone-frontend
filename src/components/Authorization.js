@@ -21,8 +21,7 @@ function Authorization() {
       localStorage.setItem("token", data);
       window.location.href = "/";
     } catch (e) {
-      alert(e.response.data);
-      throw e
+      alert(e.response.data.message);
     }
   }
 

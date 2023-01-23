@@ -13,16 +13,22 @@ function JobBoard() {
   });
 
   async function getByFitler() {
-    const objectFilter = {};
+    try {
+      const objectFilter = {};
 
-    objectFilter.specialty = filter.specialty.length
-      ? filter.specialty
-      : undefined;
+      objectFilter.specialty = filter.specialty.length
+        ? filter.specialty
+        : undefined;
 
-    objectFilter.experience = filter.experience ? filter.experience : undefined;
+      objectFilter.experience = filter.experience
+        ? filter.experience
+        : undefined;
 
-    const { data } = await DataService.vacancy.getByFitler(objectFilter);
-    setVacancies(data);
+      const { data } = await DataService.vacancy.getByFitler(objectFilter);
+      setVacancies(data);
+    } catch (e) {
+      alert(e.response.data.message);
+    }
   }
 
   async function onFilterChange(key, value) {

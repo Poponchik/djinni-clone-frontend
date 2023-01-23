@@ -14,21 +14,28 @@ const initialInputValues = {
 };
 
 function Registration() {
-  const {inputValues, onInputChange, setDefaultValues} = useInput(initialInputValues);
+  const { inputValues, onInputChange, setDefaultValues } = useInput(initialInputValues);
   const [avatar, setAvatar] = useState(null);
 
   async function register() {
-    const formData = createFormDataFromObject({...inputValues, avatar: avatar[0]})
+    try {
+      const formData = createFormDataFromObject({
+        ...inputValues,
+        avatar: avatar?.[0],
+      });
 
-    const { data } = await DataService.auth.register(formData);
+      const { data } = await DataService.auth.register(formData);
 
-    localStorage.setItem("token", data);
-    setDefaultValues(initialInputValues);
+      localStorage.setItem("token", data);
+      setDefaultValues(initialInputValues);
 
-    if (inputValues.role === "Recruter") {
-      window.location.href = "/companyInfo";
-    } else {
-      window.location.href = "/";
+      if (inputValues.role === "Recruter") {
+        window.location.href = "/companyInfo";
+      } else {
+        window.location.href = "/";
+      }
+    } catch (e) {
+      alert(e.response.data.message);
     }
   }
 
