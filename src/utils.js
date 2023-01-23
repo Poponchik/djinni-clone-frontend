@@ -16,3 +16,12 @@ export function createFormDataFromObject(object) {
 }
 
 
+export function uploadImages(file, onChange) {
+  if (file) {
+    onChange(file);
+  } else {
+    console.log("file error");
+  }
+}
+
+

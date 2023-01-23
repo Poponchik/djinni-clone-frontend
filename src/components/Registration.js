@@ -35,7 +35,7 @@ function Registration() {
         window.location.href = "/";
       }
     } catch (e) {
-      alert(e.response.data.message);
+      alert(e?.response?.data?.message);
     }
   }
 

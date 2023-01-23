@@ -1,15 +1,7 @@
 import styles from "../styles/uploadPhoto.module.css";
+import { uploadImages } from "../utils.js";
 
 function UploadFile({ value, onChange, multiple = false }) {
-  
-  function uploadImages(file) {
-    if (file) {
-      onChange(file);
-    } else {
-      console.log("file error");
-    }
-  }
-
   return (
     <div className={styles.preview_images_div}>
       <div className={styles.preview_images}>
@@ -29,8 +21,8 @@ function UploadFile({ value, onChange, multiple = false }) {
       <input
         id="file-upload"
         type="file"
-        multiple = {multiple}
-        onChange={(e) => uploadImages(e.target.files)}
+        multiple={multiple}
+        onChange={(e) => uploadImages(e.target.files, onChange)}
       />
     </div>
   );

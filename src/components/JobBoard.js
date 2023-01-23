@@ -27,7 +27,7 @@ function JobBoard() {
       const { data } = await DataService.vacancy.getByFitler(objectFilter);
       setVacancies(data);
     } catch (e) {
-      alert(e.response.data.message);
+      alert(e?.response?.data?.message);
     }
   }
 

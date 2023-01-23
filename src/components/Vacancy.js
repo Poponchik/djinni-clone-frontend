@@ -7,17 +7,15 @@ import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsFillPeopleFill } from "react-icons/bs";
 import moment from "moment";
-import { createFormDataFromObject, getUser } from "../utils";
+import { createFormDataFromObject, getUser, uploadImages} from "../utils";
 import { useInput } from "../customHooks/useInput";
-import UploadFile from "./UploadFile";
 
 const initialInputValues = {
   coverLetter: "",
 };
 function Vacancy() {
   const [vacancy, setVacancy] = useState({});
-  const { inputValues, onInputChange, setDefaultValues } =
-    useInput(initialInputValues);
+  const { inputValues, onInputChange, setDefaultValues } = useInput(initialInputValues);
   const [cv, setCV] = useState("");
 
   const userData = getUser();
@@ -28,10 +26,9 @@ function Vacancy() {
       const { data } = await DataService.vacancy.getById(vacancyId);
       setVacancy(data);
     } catch (e) {
-      alert(e.response.data.message);
+      alert(e?.response?.data?.message);
     }
   }
-
   async function apply() {
     try {
       const formData = createFormDataFromObject({
@@ -46,7 +43,7 @@ function Vacancy() {
 
       getVacancy();
     } catch (e) {
-      alert(e.response.data.message);
+      alert(e?.response?.data?.message);
     }
   }
 
@@ -112,9 +109,13 @@ function Vacancy() {
               >
                 Завантажити CV
               </label>
+              <input
+                id="file-upload"
+                type="file"
+                multiple
+                onChange={(e) => uploadImages(e.target.files, setCV)}
+              />
             </div>
-            <UploadFile value={cv} onChange={setCV} />
-
             <span>{cv[0]?.name}</span>
           </div>
         )}

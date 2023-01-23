@@ -12,7 +12,7 @@ function RecrutiersJobList() {
       const { data } = await DataService.vacancy.getByUser();
       setVacancies(data);
     } catch (e) {
-      alert(e.response.data.message);
+      alert(e?.response?.data?.message);
     }
   }
 

@@ -32,7 +32,7 @@ function CompanyInfo() {
       setDefaultValues(initialInputValues);
       window.location.href = "/myVacancies";
     } catch (e) {
-      alert(e.response.data.message);
+      alert(e?.response?.data?.message);
     }
   }
 
@@ -42,7 +42,7 @@ function CompanyInfo() {
       const { data } = await DataService.company.getById(companyId);
       setDefaultValues(data);
     } catch (e) {
-      alert(e.response.data.message);
+      alert(e?.response?.data?.message);
     }
   }
 

@@ -7,7 +7,7 @@ export class Auth {
 
   async register(formData) {
     try {
-      await unAuthorizedAxios.post(`${this.prefix}/registration`, formData);
+      return unAuthorizedAxios.post(`${this.prefix}/registration`, formData);
     } catch (e) {
       console.log("Failed to register", e);
       throw e;
