@@ -97,7 +97,7 @@ function CreateVacancy() {
               </option>
 
               {specialties.technical.map((specialty) => {
-                return <option  key={specialty} value={specialty}>{specialty}</option>;
+                return <option key={specialty} value={specialty}>{specialty}</option>;
               })}
               <option disabled className={styles.select_disable_element}>
                 Не технічні

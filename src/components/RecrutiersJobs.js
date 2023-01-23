@@ -35,12 +35,16 @@ function RecrutiersJobList() {
 
         {vacancies.map((vacancy) => {
           return (
-            <div className={styles.vacancy}>
+            <div className={styles.vacancy} key={vacancy._id}>
               <div className={styles.salary_div}>
                 <Link to={`/vacancy/${vacancy._id}`} className={styles.link}>
                   <h3 className={styles.vacancy_title}>{vacancy.name}</h3>
                 </Link>
-                {vacancy.salaryRange.min && <div className={styles.salary}>${vacancy.salaryRange.min} - ${vacancy.salaryRange.max}</div>}
+                {vacancy.salaryRange.min && (
+                  <div className={styles.salary}>
+                    ${vacancy.salaryRange.min} - ${vacancy.salaryRange.max}
+                  </div>
+                )}
               </div>
 
               <p className={styles.vacancy_info}>{vacancy.shortDescription}</p>
@@ -68,12 +72,13 @@ function RecrutiersJobList() {
           );
         })}
         <div className={styles.link_div}>
-          <Link to="/" className={styles.link} >
-            <a className={styles.link_to_vacancies}>Вакансії інших роботодавців</a>
+          <Link to="/" className={styles.link}>
+            <a className={styles.link_to_vacancies}>
+              Вакансії інших роботодавців
+            </a>
           </Link>
         </div>
       </div>
-
     </div>
   );
 }

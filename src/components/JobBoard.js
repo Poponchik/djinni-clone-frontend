@@ -79,7 +79,7 @@ function JobBoard() {
             <div className={styles.vacancy_div}>
               {vacancies?.map((vacancy) => {
                 return (
-                  <div className={styles.vacancy}>
+                  <div className={styles.vacancy} key={vacancy._id}>
                     <div className={styles.salary_div}>
                       <Link
                         to={`/vacancy/${vacancy._id}`}
@@ -137,6 +137,7 @@ function JobBoard() {
               {filters.specialties.technical.map((specialty) => {
                 return (
                   <button
+                    key={specialty}
                     onClick={() => onFilterChange("specialties", specialty)}
                     className={
                       filter.specialty.includes(specialty)
@@ -154,6 +155,7 @@ function JobBoard() {
               {filters.specialties.nonTechnical.map((specialty) => {
                 return (
                   <button
+                    key={specialty}
                     className={
                       filter.specialty.includes(specialty)
                         ? styles.specialization_checked
@@ -171,6 +173,7 @@ function JobBoard() {
               {filters.experiences.map((experience) => {
                 return (
                   <button
+                    key={experience}
                     className={
                       filter.experience === experience.value
                         ? styles.specialization_checked
