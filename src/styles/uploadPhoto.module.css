@@ -1,12 +1,14 @@
 .preview_images_div{
-    width: 400px;
-    height: 400px;
+    max-width: 200px;
+    max-height: 200px;
 }
 
 .preview_image{
     width: 100%;
     height: 100%;
     border-radius: 4px;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .preview_images{
