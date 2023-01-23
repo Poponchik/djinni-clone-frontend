@@ -96,14 +96,14 @@ function CreateVacancy() {
                 Технічні
               </option>
 
-              {specialties.technical.map((speciaty) => {
-                return <option value={speciaty}>{speciaty}</option>;
+              {specialties.technical.map((specialty) => {
+                return <option  key={specialty} value={specialty}>{specialty}</option>;
               })}
               <option disabled className={styles.select_disable_element}>
                 Не технічні
               </option>
-              {specialties.nonTechnical.map((speciaty) => {
-                return <option value={speciaty}>{speciaty}</option>;
+              {specialties.nonTechnical.map((specialty) => {
+                return <option key ={specialty} value={specialty}>{specialty}</option>;
               })}
             </select>
           </div>

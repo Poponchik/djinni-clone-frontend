@@ -107,7 +107,7 @@ function JobBoard() {
 
                       <div className={styles.company_info}>
                         <h4 className={styles.company_name}>
-                          {vacancy.company.name}{" "}
+                          {vacancy?.company?.name}{" "}
                         </h4>
                         <div className={styles.location_div}>
                           <p className={styles.location}>
